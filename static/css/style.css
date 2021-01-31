@@ -1,0 +1,222 @@
+
+/*navbar style*/
+.navbar-brand-margin {
+    margin-right: 5px;
+}
+.navbar-toggler .navbar-toggler-icon{
+    border-color:#06042c;
+    border-style:none;
+}
+.navbar-toggler:focus, .navbar-toggler:active {
+    outline: none;
+    box-shadow: none;
+}
+
+.nav-icon-margin {
+    margin-right:5px;
+}
+
+.navbar-icon-top .navbar-nav .nav-link > .icons {
+    position: relative;
+    width: 36px;
+    font-size: 24px;
+}
+  
+.navbar-icon-top .navbar-nav .nav-link > .icons > .badge {
+    font-size: 0.75rem;
+    position: absolute;
+    right: 0;
+    font-family: sans-serif;
+}
+  
+.navbar-icon-top .navbar-nav .nav-link > .icons {
+    top: 3px;
+    line-height: 12px;
+}
+  
+.navbar-icon-top .navbar-nav .nav-link > .icons > .badge {
+    top: -10px;
+}
+  
+@media (min-width: 576px) {
+    .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link {
+        text-align: center;
+        display: table-cell;
+        height: 70px;
+        vertical-align: middle;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+  
+    .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .icons {
+        display: block;
+        width: 48px;
+        margin: 2px auto 4px auto;
+        top: 0;
+        line-height: 24px;
+    }
+  
+    .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .icons > .badge {
+        top: -7px;
+    }
+}
+  
+@media (min-width: 768px) {
+    .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link {
+        text-align: center;
+        display: table-cell;
+        height: 70px;
+        vertical-align: middle;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+  
+    .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .icons {
+        display: block;
+        width: 48px;
+        margin: 2px auto 4px auto;
+        top: 0;
+        line-height: 24px;
+    }
+  
+    .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .icons > .badge {
+        top: -7px;
+    }
+}
+  
+  @media (min-width: 992px) {
+    .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link {
+      text-align: center;
+      display: table-cell;
+      height: 70px;
+      vertical-align: middle;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  
+    .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .icons {
+      display: block;
+      width: 48px;
+      margin: 2px auto 4px auto;
+      top: 0;
+      line-height: 24px;
+    }
+  
+    .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .icons > .badge {
+      top: -7px;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link {
+      text-align: center;
+      display: table-cell;
+      height: 70px;
+      vertical-align: middle;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  
+    .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .icons {
+      display: block;
+      width: 48px;
+      margin: 2px auto 4px auto;
+      top: 0;
+      line-height: 24px;
+    }
+  
+    .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .icons > .badge {
+      top: -7px;
+    }
+  }
+
+  .navbar-custom .navbar-nav .nav-link {
+    color: rgba(255,255,255,.5);
+    padding: .75rem 1rem;
+  }
+
+  .navbar-custom .nav-item.active .nav-link,
+  .navbar-custom .nav-item:hover .nav-link {
+      color: #ffffff;
+      background-color: #333;
+  }
+
+  .nav-logout {
+    margin-right:-15px;
+  }
+
+  .navbar-toggler {
+    border: none;
+  }
+  .navbar-toggler:active {
+    outline: none;
+  }
+  button:focus {
+    outline: none;
+  }
+
+/*image*/
+.img-auto {
+    width:100%;
+    max-width: 100%;
+    height: auto;
+}
+
+/*footer*/
+footer {
+    padding: 0.1rem 0;
+    color: #e9ecef;
+    background-color: #343a40;
+  }
+/*
+footer .copyright {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+*/
+
+/*Top page CSS*/
+
+.links{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 40px;
+}
+
+.card-logo-margin{
+    margin-bottom: 20px;
+}
+
+.top-width{
+    height: 270px;
+}
+.rcm-card{
+    width: 18rem; 
+    text-align: center;
+}
+body {
+    /*font-family: 'Poppins', sans-serif;*/
+    font-family: 'Poppins', sans-serif;
+    background: #ffffff;
+    margin-top:0px;
+}
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.0em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: rgb(0, 0, 0);
+}
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+.margin-top {
+    margin-top:10px;
+}
+.margin-top-info {
+    margin-top:30px;
+}
