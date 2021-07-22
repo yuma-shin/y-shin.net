@@ -226,3 +226,21 @@ p {
 .lastUpdate:after {
   content: "2021/7/22";
 }
+
+/*Icon color*/
+.bi-github,
+.bi-twitter,
+.bi-youtube {
+  color:#212529
+}
+
+/*Icon hover color*/
+.bi-github:hover,
+.bi-twitter:hover {
+  color: gray;
+}
+
+/*Link color*/
+.link-color {
+  color: black;
+}
