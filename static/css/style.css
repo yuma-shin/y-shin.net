@@ -221,3 +221,8 @@ p {
 .margin-top-info {
     margin-top:30px;
 }
+
+/*Last Update Date*/
+.lastUpdate:after {
+  content: "2021/7/22";
+}
