@@ -222,11 +222,6 @@ p {
     margin-top:30px;
 }
 
-/*Last Update Date*/
-.lastUpdate:after {
-  content: "2021/7/22";
-}
-
 /*Icon color*/
 .bi-github,
 .bi-twitter,
@@ -243,4 +238,9 @@ p {
 /*Link color*/
 .link-color {
   color: black;
+}
+
+/*Last Update Date*/
+.lastUpdate:after {
+  content: "2021/7/24";
 }
