@@ -164,10 +164,10 @@
 
 /*footer*/
 footer {
+    margin-top: auto;
     padding: 0.1rem 0;
     color: #e9ecef;
     background-color: #343a40;
-    margin-top: auto;
   }
 /*
 footer .copyright {
@@ -239,6 +239,12 @@ p {
 /*Link color*/
 .link-color {
   color: black;
+}
+
+.wrapper { 
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /*Last Update Date*/
