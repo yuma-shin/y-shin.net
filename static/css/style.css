@@ -249,6 +249,12 @@ footer .copyright {
     width: 18rem; 
     text-align: center;
 }
+
+.files-card{
+  width: 18rem; 
+  text-align: center;
+}
+
 body {
     /*font-family: 'Poppins', sans-serif;*/
     font-family: 'Poppins', sans-serif;
