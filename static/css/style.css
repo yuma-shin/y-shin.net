@@ -1,3 +1,7 @@
+/*font define*/
+body {
+  font-family: sans-serif;
+  }
 
 /*navbar style*/
 .navbar {
@@ -301,12 +305,20 @@ p {
   min-height: 100vh;
 }
 
-/*Last Update Date*/
-.lastUpdate:after {
-  content: "2021/8/23";
-}
-
 .rcm-card:hover {
   /*opacity: 0.6; filter: brightness(110%);*/
   box-shadow:0 0 0 3px #9c27b0;
+}
+
+/*bootstrap icon margin*/
+.bi-github::before {
+  margin-bottom: 4px;
+}
+.bi-twitter::before {
+  margin-bottom: 4px;
+}
+
+/*Last Update Date*/
+.lastUpdate:after {
+  content: "2021/8/23";
 }
