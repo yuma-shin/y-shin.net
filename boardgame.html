@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
         <title>TsumTsumYuma | Boardgame</title>
 
         <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="static/assets/img/brand.ico">
 
-        <!--Stylesheet-->
+        <!--Define stylesheet-->
+        <!--     Fonts and icons     -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+        <!-- Material Kit CSS -->
+        <link href="static/css/material-kit.css?v=2.0.7" rel="stylesheet" />
+
         <!-- Bootstrap CSS-->
-        <link rel="stylesheet" href="static/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" href="static/css/bootstrap.min.css">-->
         <!-- Our Custom CSS -->
         <link rel="stylesheet" href="static/css/style.css">
         <!--Simple icon CSS-->
@@ -35,10 +44,13 @@
         <div class="wrapper">
             <header>
                 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark navbar-custom py-0">
-                    <a class="navbar-brand" href="./">
+                    <a class="navbar-brand pl-3" href="./">
                         TsumTsumYuma
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon"></span>
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbar">
@@ -56,6 +68,7 @@
                                 <a class="nav-link" href="./boardgame.html"><i class="icons icon-puzzle nav-icon-margin"></i>Board Game</a>
                             </li>
                         </ul>
+                        <hr>
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="#links"><i class="icons icon-link nav-icon-margin"></i>Links</a>
@@ -73,70 +86,58 @@
             <br>
             
             <div class="container">
-                <h1 id="boardgame">Boardgame</h1>
+                <h1 id="boardgame" class="text-center">Boardgame</h1>
                 <div class="col-12">
                     <br>
                     <h2 id="links">Links</h2>
                     <hr>
                     <div class="effect-fade row justify-content-center">
-                        <div class="links">
-                            <object><a href="https://7wonders-online.com/" target="_blank" class="card hvr-glow rcm-card contents">
+                        <div class="links-card">
+                            <object><a href="https://7wonders-online.com/" target="_blank" class="card rcm-card contents">
                                 <div class="card-body shadow top-width">
                                     <img src="static/assets/img/7wonders.png" width="70px" class="hover-top card-logo-margin"><br>
-                                    <h4 class="card-title font-weight-normal"><span class="margin-top">世界の七不思議</h4>
-                                    <h6 class="card-subtitle mb-2 text-muted font-weight-normal">7wonders</h6>
+                                    <h3 class="card-title font-weight-normal"><span class="margin-top">世界の七不思議</h3>
+                                    <h5 class="card-subtitle mb-2 text-muted font-weight-normal">7wonders</h5>
                                     <hr>
                                     <object>
-                                        <a class="btn btn-outline-dark btn-sm" href="https://w.atwiki.jp/bga9997/pages/131.html" target="_blank" role="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-text-fill pb-1" viewBox="0 0 16 16">
-                                                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
-                                            </svg>
-                                            Wiki
+                                        <a class="btn btn-primary btn-sm" href="https://w.atwiki.jp/bga9997/pages/131.html" target="_blank" role="button">
+                                        Wiki
                                         </a>
                                     </object>
                                     <object>
-                                        <a class="btn btn-outline-dark btn-sm" href="http://emaame.com/static/bsw/pdfs/7_Wonders_J.pdf" target="_blank" role="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-book-hal pb-1" viewBox="0 0 16 16">
-                                                <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
-                                            </svg>
-                                            Rule Book
+                                        <a class="btn btn-primary btn-sm" href="http://emaame.com/static/bsw/pdfs/7_Wonders_J.pdf" target="_blank" role="button">
+                                        Rule Book
                                         </a>
                                     </object>
                                 </div>
                             </a></object>
                         </div>
-                        <div class="links">
-                            <object><a href="https://resistance.spiel.jp/" target="_blank" class="card hvr-glow rcm-card contents">
+                        <div class="links-card">
+                            <object><a href="https://resistance.spiel.jp/" target="_blank" class="card rcm-card contents">
                                 <div class="card-body shadow top-width">
                                     <img src="static/assets/img/avalon.jpg" width="70px" height="70px" class="hover-top card-logo-margin"><br>
-                                    <h4 class="card-title font-weight-normal"><span class="margin-top">アヴァロン</h4>
-                                    <h6 class="card-subtitle mb-2 text-muted font-weight-normal">The Resistance Avalon</h6>
+                                    <h3 class="card-title font-weight-normal"><span class="margin-top">アヴァロン</h3>
+                                    <h5 class="card-subtitle mb-2 text-muted font-weight-normal">The Resistance Avalon</h5>
                                     <hr>
                                     <object>
-                                        <a class="btn btn-outline-dark btn-sm" href="https://hobbyjapan.co.jp/r_avalon/" target="_blank" role="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house-door-fill pb-1" viewBox="0 0 16 16">
-                                                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
-                                            </svg>
-                                            公式HP
+                                        <a class="btn btn-primary btn-sm" href="https://hobbyjapan.co.jp/r_avalon/" target="_blank" role="button">
+                                        公式HP
                                         </a>
                                     </object>
                                     <object>
-                                        <a class="btn btn-outline-dark btn-sm" href="https://bodoge.hoobby.net/games/the-resistance-avalon/instructions/4331" target="_blank" role="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-book-hal pb-1" viewBox="0 0 16 16">
-                                                <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
-                                            </svg>
-                                            Rule Book
+                                        <a class="btn btn-primary btn-sm" href="https://bodoge.hoobby.net/games/the-resistance-avalon/instructions/4331" target="_blank" role="button">
+                                        Rule Book
                                         </a>
                                     </object>
                                 </div>
                             </a></object>
                         </div>
-                        <div class="links">
-                            <a href="https://ja.boardgamearena.com/" target="_blank" class="card hvr-glow rcm-card contents">
+                        <div class="links-card">
+                            <a href="https://ja.boardgamearena.com/" target="_blank" class="card rcm-card contents">
                             <div class="card-body shadow top-width">
                                 <img src="static/assets/img/bga.png" height="70px" class="hover-top card-logo-margin"><br>
-                                <h4 class="card-title font-weight-normal"><span class="margin-top">Board Game Arena</h4>
-                                <h6 class="card-subtitle mb-2 text-muted font-weight-normal">Board Game Site</h6>
+                                <h3 class="card-title font-weight-normal"><span class="margin-top">Board Game Arena</h3>
+                                <h5 class="card-subtitle mb-2 text-muted font-weight-normal">Board Game Site</h5>
                                 <hr>
                                 <p>350種類以上のボードゲームを集めたボードゲームサイトです</p>
                             </div>
@@ -150,14 +151,11 @@
                         <div class="links">
                             <div class="rcm-card">
                                 <h3>開拓王</h3>
-                                <h6>CATAN</h6>
-                                <span class="badge badge-light font-weight-normal">Size : 908 KB</span>
-                                <span class="badge badge-light font-weight-normal">MD5 : 5eaab3e79542c3fcd6b3d60de5d25ad8</span>
+                                <h5>CATAN</h5>
+                                <span class="badge badge-default font-weight-normal">Size : 908 KB</span>
+                                <span class="badge badge-default font-weight-normal">MD5 : 5eaab3e79542c3fcd6b3d60de5d25ad8</span>
                                 <hr>
-                                <a class="btn btn-outline-dark" href="https://drive.google.com/uc?export=download&id=1JFWW_QX_D1OoHevMY8klZ1LNXR4GlvgE" target="_blank" role="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cloud-download-fill pb-1" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M8 0a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 4.095 0 5.555 0 7.318 0 9.366 1.708 11 3.781 11H7.5V5.5a.5.5 0 0 1 1 0V11h4.188C14.502 11 16 9.57 16 7.773c0-1.636-1.242-2.969-2.834-3.194C12.923 1.999 10.69 0 8 0zm-.354 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V11h-1v3.293l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z"/>
-                                    </svg>
+                                <a class="btn btn-primary" href="https://drive.google.com/uc?export=download&id=1JFWW_QX_D1OoHevMY8klZ1LNXR4GlvgE" target="_blank" role="button">
                                     Download
                                 </a>
                             </div>
@@ -165,14 +163,11 @@
                         <div class="links">
                             <div class="rcm-card">
                                 <h3>Online Tool</h3>
-                                <h6>Dominion / Loveletter</h6>
-                                <span class="badge badge-light font-weight-normal">Size : 166 MB</span>
-                                <span class="badge badge-light font-weight-normal">MD5 : ed34bbcd820cb46f7af1338cc4438d6a</span>
+                                <h5>Dominion / Loveletter</h5>
+                                <span class="badge badge-default font-weight-normal">Size : 166 MB</span>
+                                <span class="badge badge-default font-weight-normal">MD5 : ed34bbcd820cb46f7af1338cc4438d6a</span>
                                 <hr>
-                                <a class="btn btn-outline-dark" href="https://drive.google.com/uc?export=download&id=1bn04mLpOE2lXKgr9FqZdz31oqe7by9A8" target="_blank" role="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cloud-download-fill pb-1" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M8 0a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 4.095 0 5.555 0 7.318 0 9.366 1.708 11 3.781 11H7.5V5.5a.5.5 0 0 1 1 0V11h4.188C14.502 11 16 9.57 16 7.773c0-1.636-1.242-2.969-2.834-3.194C12.923 1.999 10.69 0 8 0zm-.354 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V11h-1v3.293l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z"/>
-                                    </svg>
+                                <a class="btn btn-primary" href="https://drive.google.com/uc?export=download&id=1bn04mLpOE2lXKgr9FqZdz31oqe7by9A8" target="_blank" role="button">
                                     Download
                                 </a>
                             </div>
@@ -183,25 +178,25 @@
                     <hr>
                     <div class="effect-fade row justify-content-center">
                         <div class="links">
-                            <a href="#" target="_blank" class="card hvr-glow rcm-card contents">
+                            <a href="#" target="_blank" class="card rcm-card contents">
                             <div class="card-body shadow top-width">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-discordhover-top card-logo-margin" viewBox="0 0 16 16">
                                     <path d="M6.552 6.712c-.456 0-.816.4-.816.888s.368.888.816.888c.456 0 .816-.4.816-.888.008-.488-.36-.888-.816-.888zm2.92 0c-.456 0-.816.4-.816.888s.368.888.816.888c.456 0 .816-.4.816-.888s-.36-.888-.816-.888z"/>
                                     <path d="M13.36 0H2.64C1.736 0 1 .736 1 1.648v10.816c0 .912.736 1.648 1.64 1.648h9.072l-.424-1.48 1.024.952.968.896L15 16V1.648C15 .736 14.264 0 13.36 0zm-3.088 10.448s-.288-.344-.528-.648c1.048-.296 1.448-.952 1.448-.952-.328.216-.64.368-.92.472-.4.168-.784.28-1.16.344a5.604 5.604 0 0 1-2.072-.008 6.716 6.716 0 0 1-1.176-.344 4.688 4.688 0 0 1-.584-.272c-.024-.016-.048-.024-.072-.04-.016-.008-.024-.016-.032-.024-.144-.08-.224-.136-.224-.136s.384.64 1.4.944c-.24.304-.536.664-.536.664-1.768-.056-2.44-1.216-2.44-1.216 0-2.576 1.152-4.664 1.152-4.664 1.152-.864 2.248-.84 2.248-.84l.08.096c-1.44.416-2.104 1.048-2.104 1.048s.176-.096.472-.232c.856-.376 1.536-.48 1.816-.504.048-.008.088-.016.136-.016a6.521 6.521 0 0 1 4.024.752s-.632-.6-1.992-1.016l.112-.128s1.096-.024 2.248.84c0 0 1.152 2.088 1.152 4.664 0 0-.68 1.16-2.448 1.216z"/>
                                 </svg><br>
-                                <h4 class="card-title font-weight-normal"><span class="margin-top">ボドゲさえできればいい</h4>
-                                <h6 class="card-subtitle mb-2 text-muted font-weight-normal">Discord Channel</h6>
+                                <h3 class="card-title font-weight-normal"><span class="margin-top">ボドゲさえできればいい</h3>
+                                <h5 class="card-subtitle mb-2 text-muted font-weight-normal">Discord Channel</h5>
                             </div>
                             </a>
                         </div>
                         <div class="links">
-                            <a href="https://github.com/yuma-shin/Bot_Master" target="_blank" class="card hvr-glow rcm-card contents">
+                            <a href="https://github.com/yuma-shin/Bot_Master" target="_blank" class="card rcm-card contents">
                             <div class="card-body shadow top-width">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-github hover-top card-logo-margin" viewBox="0 0 16 16">
                                     <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
                                 </svg>
-                                <h4 class="card-title font-weight-normal"><span class="margin-top">Bot Master</h4>
-                                <h6 class="card-subtitle mb-2 text-muted font-weight-normal">Discord Bot</h6>
+                                <h3 class="card-title font-weight-normal"><span class="margin-top">Bot Master</h3>
+                                <h5 class="card-subtitle mb-2 text-muted font-weight-normal">Discord Bot</h5>
                             </div>
                             </a>
                         </div>
@@ -211,8 +206,9 @@
             </div>
             <br>
             <br>
-            <footer class="footer">
-                <div class="container-fluid bg-dark mt-2 mb-0 pt-3 pb-0 small">
+            <!--Begin footer-->
+            <footer class="footer mt-auto">
+                <div class="container-fluid bg-default mt-2 mb-0 pt-3 pb-0 small">
                 <div class="row">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-6">
@@ -224,9 +220,22 @@
                 </div>
                 </div>
             </footer>
+            <!--End footer-->
 
-            <script src="static/js/jquery-3.5.1.slim.min.js"></script>
-            <script src="static/js/bootstrap.bundle.min.js"></script>
+            <!--Define JS-->
+            <!--   Core JS Files   -->
+            <script src="static/js/core/jquery.min.js" type="text/javascript"></script>
+            <script src="static/js/core/popper.min.js" type="text/javascript"></script>
+            <script src="static/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+            <script src="static/js/plugins/moment.min.js"></script>
+            <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+            <script src="static/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+            <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+            <script src="static/js/plugins/nouislider.min.js" type="text/javascript"></script>
+            <!-- Place this tag in your head or just before your close body tag. -->
+            <script async defer src="https://buttons.github.io/buttons.js"></script>
+            <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+            <script src="static/js/material-kit.js?v=2.0.4" type="text/javascript"></script>
         </div>
     </body>
 </html>
