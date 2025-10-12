@@ -26,9 +26,17 @@ const textData = Array.isArray(text) ? JSON.stringify(text) : text;
 />
 
 <script type="module">
+  // ---- ユーティリティ ----
+  const GLOBAL = '__TypewriterGlobal__';
+  const ELEM_PROP = '__twInst__';
+
+  // グローバルシングルトン（イベント多重登録防止）
+  window[GLOBAL] ||= {
+    bound: false,
+  };
+
   class TypewriterEffect {
-    /** @type {HTMLElement} */
-    element;
+    /** @type {HTMLElement|null} */ el = null;
     texts = [];
     currentTextIndex = 0;
     speed = 100;
@@ -38,128 +46,144 @@ const textData = Array.isArray(text) ? JSON.stringify(text) : text;
     isDeleting = false;
     timeoutId = null;
 
-    /** @param {HTMLElement} element */
-    constructor(element) {
-      if (!element) throw new Error('TypewriterEffect: element is null');
-      this.element = element;
+    /** @param {HTMLElement} el */
+    constructor(el) {
+      if (!(el instanceof HTMLElement)) return; // 防御
+      this.el = el;
 
-      const textData = element?.dataset?.text ?? '';
+      // 要素がなければ即終了
+      if (!this.el) return;
+
+      // dataset は常に防御的に読む
+      const d = this.el.dataset ?? {};
+      const raw = d.text ?? '';
       try {
-        const parsed = JSON.parse(textData);
-        this.texts = Array.isArray(parsed) ? parsed : [String(textData)];
+        const parsed = JSON.parse(raw);
+        this.texts = Array.isArray(parsed) ? parsed : [String(raw)];
       } catch {
-        this.texts = [String(textData)];
+        this.texts = [String(raw)];
       }
+      this.speed       = Number.parseInt(d.speed ?? '100', 10);
+      this.deleteSpeed = Number.parseInt(d.deleteSpeed ?? '50', 10);
+      this.pauseTime   = Number.parseInt(d.pauseTime ?? '2000', 10);
 
-      this.speed = parseInt(element?.dataset?.speed ?? '100', 10);
-      this.deleteSpeed = parseInt(element?.dataset?.deleteSpeed ?? '50', 10);
-      this.pauseTime = parseInt(element?.dataset?.pauseTime ?? '2000', 10);
-
-      if (this.texts.length > 1 && !this.isTypewriterEnabled()) {
+      if (this.texts.length > 1 && !this.isTypewriterEnabled(d)) {
         this.showRandomText();
       } else {
         this.start();
       }
     }
 
-    isTypewriterEnabled() {
-      const d = this.element?.dataset ?? {};
+    isTypewriterEnabled(d) {
       return d.speed !== undefined || d.deleteSpeed !== undefined || d.pauseTime !== undefined;
     }
 
     showRandomText() {
-      const randomIndex = Math.floor(Math.random() * this.texts.length);
-      if (this.element) this.element.textContent = this.texts[randomIndex] ?? '';
+      if (!this.el) return;
+      const i = Math.floor(Math.random() * this.texts.length);
+      this.el.textContent = this.texts[i] ?? '';
     }
 
     start() {
       if (this.texts.length === 0) return;
-      this.type();
+      this.loop();
     }
 
     getCurrentText() {
       return this.texts[this.currentTextIndex] ?? '';
     }
 
-    type() {
-      // 要素が既にDOMから消えていたら終了
-      if (!this.element || !document.body.contains(this.element)) {
+    loop() {
+      // 要素がもう存在しない/DOM外なら終了
+      if (!this.el || !document.body.contains(this.el)) {
         this.destroy();
         return;
       }
 
-      const currentText = this.getCurrentText();
+      const current = this.getCurrentText();
 
       if (this.isDeleting) {
         if (this.currentIndex > 0) {
           this.currentIndex--;
-          this.element.textContent = currentText.substring(0, this.currentIndex);
-          this.timeoutId = window.setTimeout(() => this.type(), this.deleteSpeed);
+          this.el.textContent = current.slice(0, this.currentIndex);
+          this.timeoutId = window.setTimeout(() => this.loop(), this.deleteSpeed);
         } else {
           this.isDeleting = false;
           this.currentTextIndex = (this.currentTextIndex + 1) % this.texts.length;
-          this.timeoutId = window.setTimeout(() => this.type(), this.speed);
+          this.timeoutId = window.setTimeout(() => this.loop(), this.speed);
         }
       } else {
-        if (this.currentIndex < currentText.length) {
+        if (this.currentIndex < current.length) {
           this.currentIndex++;
-          this.element.textContent = currentText.substring(0, this.currentIndex);
-          this.timeoutId = window.setTimeout(() => this.type(), this.speed);
+          this.el.textContent = current.slice(0, this.currentIndex);
+          this.timeoutId = window.setTimeout(() => this.loop(), this.speed);
         } else {
           if (this.texts.length > 1) {
             this.isDeleting = true;
-            this.timeoutId = window.setTimeout(() => this.type(), this.pauseTime);
+            this.timeoutId = window.setTimeout(() => this.loop(), this.pauseTime);
           }
         }
       }
     }
 
     destroy() {
-      if (this.timeoutId) {
+      if (this.timeoutId != null) {
         clearTimeout(this.timeoutId);
         this.timeoutId = null;
       }
+      if (this.el) {
+        // マーカーを消す
+        delete this.el.dataset.twInited;
+        delete this.el[ELEM_PROP];
+      }
+      this.el = null;
     }
   }
 
-  // --- ライフサイクル管理（重複初期化・残存タイマー対策） ---
-  const GLOBAL_FLAG = '__twBound';
-  const ELEM_PROP = '__tw'; // 各要素にインスタンスをぶら下げる
-  const DATA_FLAG = 'twInited'; // data-tw-inited
-
-  function initTypewriters(root = document) {
-    root.querySelectorAll('.typewriter').forEach((el) => {
-      const elem = /** @type {HTMLElement} */(el);
-      if (elem.dataset[DATA_FLAG] === '1' && elem[ELEM_PROP]) return; // 二重初期化防止
-      const inst = new TypewriterEffect(elem);
-      elem[ELEM_PROP] = inst;
-      elem.dataset[DATA_FLAG] = '1';
+  function initAll(root = document) {
+    // 差し替え完了後に走るので、最新DOMだけを見る
+    const nodes = root.querySelectorAll('.typewriter');
+    nodes.forEach((n) => {
+      const el = n instanceof HTMLElement ? n : null;
+      if (!el) return;
+      if (el.dataset.twInited === '1' && el[ELEM_PROP]) return; // 多重防止
+      const inst = new TypewriterEffect(el);
+      el[ELEM_PROP] = inst;
+      el.dataset.twInited = '1';
     });
   }
 
-  function destroyTypewriters(root = document) {
-    root.querySelectorAll('.typewriter').forEach((el) => {
-      const elem = /** @type {HTMLElement} */(el);
-      elem[ELEM_PROP]?.destroy?.();
-      delete elem[ELEM_PROP];
-      delete elem.dataset[DATA_FLAG];
+  function destroyAll(root = document) {
+    const nodes = root.querySelectorAll('.typewriter');
+    nodes.forEach((n) => {
+      const el = n instanceof HTMLElement ? n : null;
+      el?.[ELEM_PROP]?.destroy?.();
     });
   }
 
-  // 初期表示
-  initTypewriters();
+  // --- 初回: DOM構築完了後に初期化 ---
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => initAll(), { once: true });
+  } else {
+    // 既にロード済
+    initAll();
+  }
 
-  // Swupがいる場合のみ、willReplaceで破棄 → contentReplacedで再初期化
-  if (!window[GLOBAL_FLAG]) {
+  // --- Swup連携（多重バインド防止） ---
+  if (!window[GLOBAL].bound) {
+    // 次の差し替えに入る直前に全破棄（古いタイマー停止）
     document.addEventListener('swup:willReplace', () => {
-      destroyTypewriters(document);
+      destroyAll(document);
     }, { passive: true });
 
-    document.addEventListener('swup:contentReplaced', () => {
-      initTypewriters(document);
+    // 差し替え完了後（DOM確定）に再初期化
+    // pageView は最も安定（contentReplaced より後でも来る）
+    document.addEventListener('swup:pageView', () => {
+      // フレームの描画を待つと更に安全
+      requestAnimationFrame(() => initAll(document));
     }, { passive: true });
 
-    window[GLOBAL_FLAG] = true;
+    window[GLOBAL].bound = true;
   }
 </script>
 
@@ -172,6 +196,7 @@ const textData = Array.isArray(text) ? JSON.stringify(text) : text;
   }
   @keyframes blink {
     0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
+    51%,100% { opacity: 0; }
   }
 </style>
+
