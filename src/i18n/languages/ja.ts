@@ -6,6 +6,9 @@ export const ja: Translation = {
 	[Key.about]: "について",
 	[Key.archive]: "アーカイブ",
 	[Key.search]: "検索",
+	[Key.work]: "Work",
+  	[Key.awards]: "Awards",
+  	[Key.uses]: "Uses",
 	[Key.other]: "その他",
 
 	[Key.tags]: "タグ",
@@ -17,6 +20,8 @@ export const ja: Translation = {
 	// お知らせ
 	[Key.announcement]: "お知らせ",
 	[Key.announcementClose]: "閉じる",
+
+	[Key.certificates]: "Certificates",
 
 	[Key.comments]: "コメント",
 	[Key.friends]: "友達",

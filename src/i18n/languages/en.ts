@@ -6,6 +6,9 @@ export const en: Translation = {
 	[Key.about]: "About",
 	[Key.archive]: "Archive",
 	[Key.search]: "Search",
+	[Key.work]: "Work",
+  	[Key.awards]: "Awards",
+  	[Key.uses]: "Uses",
 	[Key.other]: "Other",
 
 	[Key.tags]: "Tags",
@@ -17,6 +20,8 @@ export const en: Translation = {
 	// Announcement
 	[Key.announcement]: "Announcement",
 	[Key.announcementClose]: "Close",
+
+	[Key.certificates]: "Certificates",
 
 	[Key.comments]: "Comments",
 	[Key.friends]: "Friends",
@@ -247,10 +252,4 @@ export const en: Translation = {
 	[Key.hour]: "H ",
 	[Key.minute]: "Min ",
 	[Key.second]: "Sec",
-	[Key.year]: "y",
-	[Key.month]: "m",
-	[Key.day]: "d",
-	[Key.hour]: "h",
-	[Key.minute]: "min",
-	[Key.second]: "s",
 };

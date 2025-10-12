@@ -1,3 +1,4 @@
+import type Giscus from 'giscus'
 import type { DARK_MODE, LIGHT_MODE } from "../constants/constants";
 
 export type SiteConfig = {
@@ -104,10 +105,12 @@ export enum LinkPreset {
 	Friends = 3,
 	Anime = 4,
 	Diary = 5,
-
+	Uses = 6,
 	Projects = 7,
 	Skills = 8,
 	Timeline = 9,
+	Awards = 10,
+	Work = 11,
 }
 
 export type NavBarLink = {
@@ -143,6 +146,7 @@ export type LicenseConfig = {
 export type CommentConfig = {
 	enable: boolean; // 是否启用评论功能
 	twikoo?: TwikooConfig;
+	giscus?: GiscusConfig;
 };
 
 type TwikooConfig = {
@@ -151,9 +155,7 @@ type TwikooConfig = {
 	lang?: string;
 };
 
-export type LIGHT_DARK_MODE =
-	| typeof LIGHT_MODE
-	| typeof DARK_MODE;
+export type LIGHT_DARK_MODE = typeof LIGHT_MODE | typeof DARK_MODE | typeof AUTO_MODE;
 
 export type BlogPostData = {
 	body: string;
@@ -208,7 +210,8 @@ export type WidgetComponentType =
 	| "toc"
 	| "music-player"
 	| "pio" // 添加 pio 组件类型
-	| "custom";
+	| "custom"
+	| "certificates";
 
 export type WidgetComponentConfig = {
 	type: WidgetComponentType; // 组件类型
@@ -314,3 +317,20 @@ export type PioConfig = {
 		}>;
 	};
 };
+
+type GiscusConfig = {
+  repo: Giscus.Repo;
+  host?: string;
+  repoId: string;
+  category: string;
+  categoryId: string;
+  mapping?: Giscus.Mapping;
+  term?: string;
+  strict?: Giscus.BooleanString;
+  reactionsEnabled?: Giscus.BooleanString;
+  emitMetadata?: Giscus.BooleanString;
+  inputPosition?: Giscus.InputPosition;
+  theme?: Giscus.Theme;
+  lang?: Giscus.AvailableLanguage;
+  loading?: Giscus.Loading;
+}

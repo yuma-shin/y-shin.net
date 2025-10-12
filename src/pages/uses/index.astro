@@ -1,0 +1,110 @@
+---
+import MainGridLayout from "../../layouts/MainGridLayout.astro";
+
+import { getEntry } from "astro:content";
+import { getImage } from "astro:assets";
+import { i18n } from "../../i18n/translation";
+import I18nKey from "../../i18n/i18nKey";
+
+// No Img
+import noImage from "./img/noImage.png";
+
+// Images
+import MacBookAir from "./img/MacBookAir.jpg";
+import Terminal from "./img/terminal.png";
+import VSCode from "./img/vsCode.png";
+
+const gadgets = [
+  {
+    name: "Custom PC (Core i7 11700k, RTX 3080, 32GB RAM)",
+    description: "第11世代Core i7とRTX 3080をベースとした自作PCをプライベートの開発用で使用しています。開発用とは名ばかりでゲームばかりしていますが…w",
+    image: "",
+    imageAuthor: "",
+  },
+  {
+    name: "13’ MacBook Air, M2, 8GB RAM (2022)",
+    description: "サブPCとしてM2 MacBook Airを使用しています。軽い開発やネットサーフィンに使用しています。初めてのMacで最近購入しました。WindowsとMacは両方使いこなせるようになりたいですね。",
+    image: MacBookAir.src,
+    imageAuthor: "Photo by James Yarema | Unsplash",
+  },
+  {
+    name: "13.3’ Lenovo IdeaPad Slim 5 Light Gen 10, AMD Ryzen™ 7 7735HS, 16GB RAM",
+    description: "サブPCとしてLenovoのIdeaPadを使用しています。Windowsのサブマシンとして使用しており、主に実家に帰省する際の相棒になっています。",
+  },
+  {
+    name: "BenQ MOBIUZ EX2510S",
+    description: "会社支給のノートPCや自作PCの映像出力先として24インチのゲーミングモニターを2台使用しています。元々同じBenQさんのXL2411Pを使用していましたが、EX2510Sの方が発色がとても良く気に入っています。",
+  },
+  {
+    name: "Keychron Q1 Max (JIS)",
+    description: "メインキーボードとして使用しています。Makuakeさんのクラウドファンディングで購入しました。軸はバナナ軸を選択しましたが「コトコト」ととても良い打鍵感で気に入っています。ちなみにQシリーズではQ1, Q1 Proも持っています。",
+  },
+  {
+    name: "Logicool MX Master 3",
+    description: "メインのマウスとして使用しています。横スクロール用のホイールが付いているのが便利ですね。ちなみにMXシリーズではMX Keys(キーボード), MX Master 2s, MX Master 3sを持っています。MX Master 3sはクリック音が静音で時々使い分けています。",
+  },
+  {
+    name: "Logicool ERGO M575",
+    description: "会社支給のPC(事務用)で使用しています。トラックボールマウスに興味がありお試しで購入しました。はじめは違和感がありますが、慣れると手首が疲れにくくとても使いやすいです。",
+  },
+  {
+    name: "Logicool G703",
+    description: "ゲームで使用しています。手にフィットしやすくマウスの重量もオモリで変えられるのが特徴です。",
+  },
+];
+
+const softwares = [
+  {
+    name: "Visual Studio Code",
+    description: "アプリケーション開発用のエディタとして使用しています。拡張機能で自分好みにカスタマイズでき重宝しています。Github Copilot使ってみたい…",
+    image: VSCode.src,
+  },
+  {
+    name: "Terminal",
+    description: "コマンド実行はWindowsに標準搭載されているターミナルをOh My Poshでカスタマイズして使用しています。",
+    image: Terminal.src,
+  },
+];
+---
+
+<MainGridLayout title={i18n(I18nKey.uses)} description={i18n(I18nKey.uses)}>
+  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class="card-base z-10 px-9 py-6 relative w-full">
+      <h1 class="text-3xl font-bold dark:text-white">Uses</h1>
+      <p class="mt-4 text-gray-600 dark:text-gray-400">僕が使用しているガジェット・ソフトウェアをご紹介します。</p>
+      <h2 class="text-2xl font-semibold mt-8 dark:text-white">Gadgets</h2>
+      {
+        gadgets.map((gadget) => (
+          <div class="mt-8">
+            <div class="flex flex-col md:flex-row items-start gap-6 w-full">
+              <div class="flex-none w-full md:w-[300px] text-center">
+                <img src={gadget.image ? gadget.image : noImage.src} class="rounded-[var(--radius-large)] w-full" />
+                <p class="text-gray-400 font-light">{gadget.imageAuthor ? gadget.imageAuthor : ""}</p>
+              </div>
+              <div class="flex-auto mx-2 md:mx-0">
+                <h1 class="text-xl dark:text-white">{gadget.name}</h1>
+                <p class="mt-2 text-gray-600 dark:text-gray-400">{gadget.description}</p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+      <h2 class="text-2xl font-semibold mt-8 dark:text-white">Softwares</h2>
+      {
+        softwares.map((software) => (
+          <div class="mt-6">
+            <div class="flex flex-col md:flex-row items-start gap-6 w-full">
+              <div class="flex-none w-full md:w-[300px]">
+                <img src={software.image ? software.image : noImage.src} class="rounded-[var(--radius-large)] w-full" />
+              </div>
+              <div class="flex-auto mx-2 md:mx-0">
+                <h1 class="text-xl dark:text-white">{software.name}</h1>
+                <p class="mt-2 text-gray-600 dark:text-gray-400">{software.description}</p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</MainGridLayout>

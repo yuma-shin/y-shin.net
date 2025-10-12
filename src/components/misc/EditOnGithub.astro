@@ -1,0 +1,15 @@
+---
+import { Icon } from 'astro-icon/components'
+const { path } = Astro.props
+---
+
+<div class="text-right">
+    <a href=`https://github.com/yuma-shin/yuma-astro-website/tree/main/src/content/posts/${path}` class="font-bold inline-flex" target="_blank">
+        <div class="btn-card max-w-fit rounded-2xl h-[3.75rem] px-4 flex items-center justify-start gap-4">
+            <Icon name="fa6-brands:github" class="text-[1.75rem] text-black/75 dark:text-white/75" />
+            <div class="overflow-hidden transition overflow-ellipsis whitespace-nowrap text-black/75 dark:text-white/75">
+                GitHubで記事の編集を提案する
+            </div>
+        </div>
+    </a>
+</div>

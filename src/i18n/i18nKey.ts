@@ -2,6 +2,9 @@ enum I18nKey {
 	home = "home",
 	about = "about",
 	archive = "archive",
+	work = "work",
+  	awards = "awards",
+  	uses = "uses",
 	search = "search",
 	other = "other",
 
@@ -14,6 +17,8 @@ enum I18nKey {
 	// 公告栏
 	announcement = "announcement",
 	announcementClose = "announcementClose",
+
+	certificates = "certificates",
 
 	comments = "comments",
 
