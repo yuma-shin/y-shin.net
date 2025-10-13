@@ -1,25 +1,234 @@
 ---
-
-import { getEntry, render } from "astro:content";
-import Markdown from "@components/misc/Markdown.astro";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
-
-const awardsPost = await getEntry("spec", "awards");
-
-if (!awardsPost) {
-	throw new Error("Awards page content not found");
-}
-
-const { Content } = await render(awardsPost);
 ---
-<MainGridLayout title={i18n(I18nKey.awards)} description={i18n(I18nKey.awards)}>
-    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-        <div class="card-base z-10 px-9 py-6 relative w-full ">
-            <Markdown class="mt-2">
-                <Content />
-            </Markdown>
+
+<MainGridLayout title={i18n(I18nKey.awards)} description="Awards">
+  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class="card-base z-10 px-9 py-6 relative w-full prose dark:prose-invert prose-base !max-w-none custom-md mb-6 markdown-content">
+      <div class="mb-4">
+        <h1 class="text-3xl font-bold dark:text-white">Awards</h1>
+      </div>
+      <div class="relative">
+        <!-- 时间线主轴 -->
+        <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+        <div class="space-y-8">
+          <div class="relative flex items-start gap-6">
+            <!-- 时间线节点 -->
+            <div class="relative z-10 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--enter-btn-bg)]" >
+              <p class="text-[var(--primary)] font-bold text-lg">2023</p>
+            </div>
+            <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg border border-black/10 dark:border-white/10 px-6 hover:shadow-lg transition-shadow duration-300">
+              <h4 class="text-xl font-semibold text-black/90 dark:text-white/90 mb-1">
+                6月
+              </h4>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                社長表彰 佳作
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                社内社長表彰にてServo+IoTでバーチャル検証空間を拡大 -リアルから繋ぐ鍵Remote Key Puncher-を出展し佳作を受賞。
+              </p>
+            </div>
+          </div>
+          <div class="relative flex items-start gap-6">
+            <!-- 时间线节点 -->
+            <div class="relative z-10 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--enter-btn-bg)]">
+              <p class="text-[var(--primary)] font-bold text-lg">2022</p>
+            </div>
+            <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg border border-black/10 dark:border-white/10 px-6 hover:shadow-lg transition-shadow duration-300">
+              <h4 class="text-xl font-semibold text-black/90 dark:text-white/90 mb-1">
+                12月
+              </h4>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                DX Summit 2022 Award
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                グループDX Summit 2021にてServo+IoTでバーチャル検証空間を拡大 -リアルから繋ぐ鍵Remote Key Puncher-を出展しAwardを受賞。
+              </p>
+            </div>
+          </div>
+          <div class="relative flex items-start gap-6">
+            <!-- 时间线节点 -->
+            <div class="relative z-10 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--enter-btn-bg)]">
+              <p class="text-[var(--primary)] font-bold text-lg">2021</p>
+            </div>
+            <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg border border-black/10 dark:border-white/10 px-6 hover:shadow-lg transition-shadow duration-300">
+              <h4 class="text-xl font-semibold text-black/90 dark:text-white/90 mb-1">
+                6月
+              </h4>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                社長表彰 佳作
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                社内社長表彰にてSkyWay+IoTでバーチャル検証空間を実現 -リアルな検証を自宅でも可能に-を出展し佳作を受賞。
+              </p>
+              <h4 class="text-xl font-semibold text-black/90 dark:text-white/90 mb-1">
+                12月
+              </h4>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                DX Summit 2021 Award
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                グループDX Summit 2021にてSkyWay+IoTでバーチャル検証空間を実現 -リアルな検証を自宅でも可能に-を出展しAwardを受賞。
+              </p>
+            </div>
+          </div>
+          <div class="relative flex items-start gap-6">
+            <!-- 时间线节点 -->
+            <div class="relative z-10 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--enter-btn-bg)]">
+              <p class="text-[var(--primary)] font-bold text-lg">2019</p>
+            </div>
+            <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg border border-black/10 dark:border-white/10 px-6 hover:shadow-lg transition-shadow duration-300">
+              <h4 class="text-xl font-semibold text-black/90 dark:text-white/90 mb-1">
+                2月
+              </h4>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                平成30年度 学生表彰 校長賞
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                平成30年度 学生表彰 校長賞を受賞。過去5年間のコンテスト成績を評価。
+              </p>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                平成30年度 学生表彰 功労賞(個人)
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                平成30年度 学生表彰 功労賞(個人)を受賞。過去5年間のコンテスト成績を評価。
+              </p>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                平成30年度 学生表彰 功労賞(団体:気象観測機器コンテスト)
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                平成30年度 学生表彰 功労賞(団体:気象観測機器コンテスト)を受賞。第7回高校・高専「気象観測機器コンテスト」での最優秀賞を評価。
+              </p>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                平成30年度 学生表彰 功労賞(団体:プログラミングコンテスト)
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                平成30年度 学生表彰 功労賞(団体:プログラミングコンテスト)を受賞。第29回全国高等専門学校プログラミングコンテスト 自由部門での優秀賞を評価。
+              </p>
+            </div>
+          </div>
+          <div class="relative flex items-start gap-6">
+            <!-- 时间线节点 -->
+            <div class="relative z-10 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--enter-btn-bg)]">
+              <p class="text-[var(--primary)] font-bold text-lg">2018</p>
+            </div>
+            <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg border border-black/10 dark:border-white/10 px-6 hover:shadow-lg transition-shadow duration-300">
+              <h4 class="text-xl font-semibold text-black/90 dark:text-white/90 mb-1">
+                2月
+              </h4>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                平成29年度 学生表彰 功労賞(団体)
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                平成29年度 学生表彰 功労賞(団体)を受賞。第6回高校・高専「気象観測機器コンテスト」での優秀賞を評価。
+              </p>
+              <h4 class="text-xl font-semibold text-black/90 dark:text-white/90 mb-1">
+                10月
+              </h4>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                第29回全国高等専門学校プログラミングコンテスト 自由部門 優秀賞
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                第29回全国高等専門学校プログラミングコンテスト 自由部門にぷらねっと -ARを用いた植物栽培教育支援システム-を出展し優秀賞を受賞。
+              </p>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                NAPROCK 10th International Programming Contest In The Original Section SECOND PRISE
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                NAPROCK 10th International Programming Contest In The Original Sectionにぷらねっと -ARを用いた植物栽培教育支援システム-を出展しSECOND PRISEを受賞。
+              </p>
+              <h4 class="text-xl font-semibold text-black/90 dark:text-white/90 mb-1">
+                11月
+              </h4>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                第7回高校・高専「気象観測機器コンテスト」最優秀賞
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                第7回高校・高専「気象観測機器コンテスト」に多地点同時・多種気象データ観測機器「P=System」を出展し最優秀賞を受賞。
+              </p>
+            </div>
+          </div>
+          <div class="relative flex items-start gap-6">
+            <!-- 时间线节点 -->
+            <div class="relative z-10 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--enter-btn-bg)]">
+              <p class="text-[var(--primary)] font-bold text-lg">2017</p>
+            </div>
+            <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg border border-black/10 dark:border-white/10 px-6 hover:shadow-lg transition-shadow duration-300">
+              <h4 class="text-xl font-semibold text-black/90 dark:text-white/90 mb-1">
+                2月
+              </h4>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                平成28年度 学生表彰 功労賞(団体)
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                平成28年度 学生表彰 功労賞(団体)を受賞。第5回高校・高専「気象観測機器コンテスト」での優秀賞を評価。
+              </p>
+              <h4 class="text-xl font-semibold text-black/90 dark:text-white/90 mb-1">
+                11月
+              </h4>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                第6回高校・高専「気象観測機器コンテスト」優秀賞
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                第6回高校・高専「気象観測機器コンテスト」にて2017 Examine Project | 大気汚染物質観測衛星「PENTA」を出展し優秀賞を受賞。
+              </p>
+            </div>
+          </div>
+          <div class="relative flex items-start gap-6">
+            <!-- 时间线节点 -->
+            <div class="relative z-10 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--enter-btn-bg)]">
+              <p class="text-[var(--primary)] font-bold text-lg">2016</p>
+            </div>
+            <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg border border-black/10 dark:border-white/10 px-6 hover:shadow-lg transition-shadow duration-300">
+              <h4 class="text-xl font-semibold text-black/90 dark:text-white/90 mb-1">
+                11月
+              </h4>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                第5回高校・高専「気象観測機器コンテスト」優秀賞
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                第5回高校・高専「気象観測機器コンテスト」にて2016 Examine Project | Stratosphere Examine Satellite(成層圏観測衛星)「SES」を出展し優秀賞を受賞。
+              </p>
+            </div>
+          </div>
+          <div class="relative flex items-start gap-6">
+            <!-- 时间线节点 -->
+            <div class="relative z-10 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--enter-btn-bg)]">
+              <p class="text-[var(--primary)] font-bold text-lg">2015</p>
+            </div>
+            <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg border border-black/10 dark:border-white/10 px-6 hover:shadow-lg transition-shadow duration-300">
+              <h4 class="text-xl font-semibold text-black/90 dark:text-white/90 mb-1">
+                2月
+              </h4>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                平成26年度 学生表彰 功労賞(団体)
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                平成26年度 学生表彰にて功労賞(団体)を受賞。第3回高校・高専「気象観測機器コンテスト」での優秀賞を評価。
+              </p>
+            </div>
+          </div>
+          <div class="relative flex items-start gap-6">
+            <!-- 时间线节点 -->
+            <div class="relative z-10 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--enter-btn-bg)]">
+              <p class="text-[var(--primary)] font-bold text-lg">2014</p>
+            </div>
+            <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg border border-black/10 dark:border-white/10 px-6 hover:shadow-lg transition-shadow duration-300">
+              <h4 class="text-xl font-semibold text-black/90 dark:text-white/90 mb-1">
+                12月
+              </h4>
+              <h4 class="text-lg font-semibold text-black/90 dark:text-white/90 mb-1">
+                第3回高校・高専「気象観測機器コンテスト」優秀賞
+              </h4>
+              <p class="text-black/70 dark:text-white/70 mb-4">
+                第3回高校・高専「気象観測機器コンテスト」にて2014 Examine Project | Cloud Examineを出展し優秀賞を受賞。
+              </p>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </MainGridLayout>
