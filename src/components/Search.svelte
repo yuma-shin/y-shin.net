@@ -66,81 +66,79 @@ const handleResultClick = (event: Event, url: string): void => {
 };
 
 const search = async (keyword: string, isDesktop: boolean): Promise<void> => {
-	if (!keyword) {
-		setPanelVisibility(false, isDesktop);
-		result = [];
-		return;
-	}
+  if (!keyword) {
+    setPanelVisibility(false, isDesktop);
+    result = [];
+    return;
+  }
 
-	if (!initialized) {
-		return;
-	}
+  // ★ initialized=false でも pagefind が来ていれば自己回復
+  if (!initialized) {
+    if (typeof window !== "undefined" && window.pagefind?.search) {
+      initialized = true;
+      pagefindLoaded = true;
+    } else {
+      return; // まだ本当に用意されていないときだけ抜ける
+    }
+  }
 
-	isSearching = true;
+  isSearching = true;
+  try {
+    let searchResults: SearchResult[] = [];
 
-	try {
-		let searchResults: SearchResult[] = [];
+    if (import.meta.env.PROD && pagefindLoaded && window.pagefind) {
+      const response = await window.pagefind.search(keyword);
+      searchResults = await Promise.all(response.results.map((r) => r.data()));
+    } else if (import.meta.env.DEV) {
+      searchResults = fakeResult;
+    } else {
+      searchResults = [];
+      console.error("Pagefind is not available in production environment.");
+    }
 
-		if (import.meta.env.PROD && pagefindLoaded && window.pagefind) {
-			const response = await window.pagefind.search(keyword);
-			searchResults = await Promise.all(
-				response.results.map((item) => item.data()),
-			);
-		} else if (import.meta.env.DEV) {
-			searchResults = fakeResult;
-		} else {
-			searchResults = [];
-			console.error("Pagefind is not available in production environment.");
-		}
-
-		result = searchResults;
-		setPanelVisibility(result.length > 0, isDesktop);
-	} catch (error) {
-		console.error("Search error:", error);
-		result = [];
-		setPanelVisibility(false, isDesktop);
-	} finally {
-		isSearching = false;
-	}
+    result = searchResults;
+    setPanelVisibility(result.length > 0, isDesktop);
+  } catch (error) {
+    console.error("Search error:", error);
+    result = [];
+    setPanelVisibility(false, isDesktop);
+  } finally {
+    isSearching = false;
+  }
 };
 
 onMount(() => {
-	const initializeSearch = () => {
-		initialized = true;
-		pagefindLoaded =
-			typeof window !== "undefined" &&
-			!!window.pagefind &&
-			typeof window.pagefind.search === "function";
-		console.log("Pagefind status on init:", pagefindLoaded);
-		if (keywordDesktop) search(keywordDesktop, true);
-		if (keywordMobile) search(keywordMobile, false);
-	};
+  const initializeSearch = () => {
+    initialized = true;
+    pagefindLoaded =
+      typeof window !== "undefined" &&
+      !!window.pagefind &&
+      typeof window.pagefind.search === "function";
+    console.log("Pagefind status on init:", pagefindLoaded);
+    if (keywordDesktop) search(keywordDesktop, true);
+    if (keywordMobile) search(keywordMobile, false);
+  };
 
-	if (import.meta.env.DEV) {
-		console.log(
-			"Pagefind is not available in development mode. Using mock data.",
-		);
-		initializeSearch();
-	} else {
-		document.addEventListener("pagefindready", () => {
-			console.log("Pagefind ready event received.");
-			initializeSearch();
-		});
-		document.addEventListener("pagefindloaderror", () => {
-			console.warn(
-				"Pagefind load error event received. Search functionality will be limited.",
-			);
-			initializeSearch(); // Initialize with pagefindLoaded as false
-		});
+  if (import.meta.env.DEV) {
+    console.log("Pagefind is not available in development mode. Using mock data.");
+    initializeSearch();
+  } else {
+    // ★ ここを追加（ハイフン有りのイベントも待つ）
+    const onReady = () => { console.log("Pagefind ready event received."); initializeSearch(); };
+    const onError = () => { console.warn("Pagefind load error event received."); initializeSearch(); };
 
-		// Fallback in case events are not caught or pagefind is already loaded by the time this script runs
-		setTimeout(() => {
-			if (!initialized) {
-				console.log("Fallback: Initializing search after timeout.");
-				initializeSearch();
-			}
-		}, 2000); // Adjust timeout as needed
-	}
+    document.addEventListener("pagefindready", onReady);
+    document.addEventListener("pagefind-ready", onReady); // ← 追加
+    document.addEventListener("pagefindloaderror", onError);
+
+    // Fallback
+    setTimeout(() => {
+      if (!initialized) {
+        console.log("Fallback: Initializing search after timeout.");
+        initializeSearch();
+      }
+    }, 2000);
+  }
 });
 
 $: if (initialized && keywordDesktop) {
