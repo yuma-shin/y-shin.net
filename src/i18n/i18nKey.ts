@@ -2,9 +2,6 @@ enum I18nKey {
 	home = "home",
 	about = "about",
 	archive = "archive",
-	work = "work",
-  	awards = "awards",
-  	uses = "uses",
 	search = "search",
 	other = "other",
 
@@ -17,8 +14,6 @@ enum I18nKey {
 	// 公告栏
 	announcement = "announcement",
 	announcementClose = "announcementClose",
-
-	certificates = "certificates",
 
 	comments = "comments",
 
@@ -51,14 +46,12 @@ enum I18nKey {
 	// 番剧页面
 	animeTitle = "animeTitle",
 	animeSubtitle = "animeSubtitle",
-	animeList = "animeList",
-	animeTotal = "animeTotal",
-	animeWatching = "animeWatching",
-	animeCompleted = "animeCompleted",
-	animeAvgRating = "animeAvgRating",
 	animeStatusWatching = "animeStatusWatching",
 	animeStatusCompleted = "animeStatusCompleted",
 	animeStatusPlanned = "animeStatusPlanned",
+	animeStatusOnHold = "animeStatusOnHold",
+	animeStatusDropped = "animeStatusDropped",
+	animeFilterAll = "animeFilterAll",
 	animeYear = "animeYear",
 	animeStudio = "animeStudio",
 	animeEmpty = "animeEmpty",
@@ -117,8 +110,10 @@ enum I18nKey {
 	projectsPlanned = "projectsPlanned",
 	projectsDemo = "projectsDemo",
 	projectsSource = "projectsSource",
+	projectsVisit = "projectsVisit",
+	projectsGitHub = "projectsGitHub",
 
-	// 技能展示页面
+	// Skills page
 	skills = "skills",
 	skillsSubtitle = "skillsSubtitle",
 	skillsFrontend = "skillsFrontend",
@@ -144,44 +139,9 @@ enum I18nKey {
 	skillsDistribution = "skillsDistribution",
 	skillsByLevel = "skillsByLevel",
 	skillsByCategory = "skillsByCategory",
+	noData = "noData",
 
-	// RSS页面
-	rss = "rss",
-	rssDescription = "rssDescription",
-	rssSubtitle = "rssSubtitle",
-	rssLink = "rssLink",
-	rssCopyToReader = "rssCopyToReader",
-	rssCopyLink = "rssCopyLink",
-	rssLatestPosts = "rssLatestPosts",
-	rssWhatIsRSS = "rssWhatIsRSS",
-	rssWhatIsRSSDescription = "rssWhatIsRSSDescription",
-	rssBenefit1 = "rssBenefit1",
-	rssBenefit2 = "rssBenefit2",
-	rssBenefit3 = "rssBenefit3",
-	rssBenefit4 = "rssBenefit4",
-	rssHowToUse = "rssHowToUse",
-	rssCopied = "rssCopied",
-	rssCopyFailed = "rssCopyFailed",
-
-	// Atom页面
-	atom = "atom",
-	atomDescription = "atomDescription",
-	atomSubtitle = "atomSubtitle",
-	atomLink = "atomLink",
-	atomCopyToReader = "atomCopyToReader",
-	atomCopyLink = "atomCopyLink",
-	atomLatestPosts = "atomLatestPosts",
-	atomWhatIsAtom = "atomWhatIsAtom",
-	atomWhatIsAtomDescription = "atomWhatIsAtomDescription",
-	atomBenefit1 = "atomBenefit1",
-	atomBenefit2 = "atomBenefit2",
-	atomBenefit3 = "atomBenefit3",
-	atomBenefit4 = "atomBenefit4",
-	atomHowToUse = "atomHowToUse",
-	atomCopied = "atomCopied",
-	atomCopyFailed = "atomCopyFailed",
-
-	// 时间线页面
+	// Timeline page
 	timeline = "timeline",
 	timelineSubtitle = "timelineSubtitle",
 	timelineEducation = "timelineEducation",
@@ -199,14 +159,8 @@ enum I18nKey {
 	timelineCurrent = "timelineCurrent",
 	timelineHistory = "timelineHistory",
 	timelineAchievements = "timelineAchievements",
-	timelineStatistics = "timelineStatistics",
-	timelineByType = "timelineByType",
-	timelineWorkExperience = "timelineWorkExperience",
-	timelineTotalExperience = "timelineTotalExperience",
-	timelineWorkPositions = "timelineWorkPositions",
-	timelineCurrentRole = "timelineCurrentRole",
-	timelineEmployed = "timelineEmployed",
-	timelineAvailable = "timelineAvailable",
+	timelineStartDate = "timelineStartDate",
+	timelineDuration = "timelineDuration",
 
 	// 密码保护
 	passwordProtected = "passwordProtected",
@@ -236,6 +190,46 @@ enum I18nKey {
 	hour = "hour",
 	minute = "minute",
 	second = "second",
+
+	// RSS and Atom
+	rss = "rss",
+	rssDescription = "rssDescription",
+	rssSubtitle = "rssSubtitle",
+	rssLink = "rssLink",
+	rssCopyToReader = "rssCopyToReader",
+	rssCopyLink = "rssCopyLink",
+	rssLatestPosts = "rssLatestPosts",
+	rssWhatIsRSS = "rssWhatIsRSS",
+	rssWhatIsRSSDescription = "rssWhatIsRSSDescription",
+	rssBenefit1 = "rssBenefit1",
+	rssBenefit2 = "rssBenefit2",
+	rssBenefit3 = "rssBenefit3",
+	rssBenefit4 = "rssBenefit4",
+	rssHowToUse = "rssHowToUse",
+	rssCopied = "rssCopied",
+	rssCopyFailed = "rssCopyFailed",
+
+	atom = "atom",
+	atomDescription = "atomDescription",
+	atomSubtitle = "atomSubtitle",
+	atomLink = "atomLink",
+	atomCopyToReader = "atomCopyToReader",
+	atomCopyLink = "atomCopyLink",
+	atomLatestPosts = "atomLatestPosts",
+	atomWhatIsAtom = "atomWhatIsAtom",
+	atomWhatIsAtomDescription = "atomWhatIsAtomDescription",
+	atomBenefit1 = "atomBenefit1",
+	atomBenefit2 = "atomBenefit2",
+	atomBenefit3 = "atomBenefit3",
+	atomBenefit4 = "atomBenefit4",
+	atomHowToUse = "atomHowToUse",
+	atomCopied = "atomCopied",
+	atomCopyFailed = "atomCopyFailed",
+
+	// Wallpaper mode
+	wallpaperBanner = "wallpaperBanner",
+	wallpaperFullscreen = "wallpaperFullscreen",
+	wallpaperNone = "wallpaperNone",
 }
 
 export default I18nKey;

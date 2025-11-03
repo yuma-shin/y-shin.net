@@ -1,100 +1,37 @@
 ---
+
+import { getEntry, render } from "astro:content";
+import Markdown from "@components/misc/Markdown.astro";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
----
 
-<MainGridLayout title={i18n(I18nKey.about)} description="About">
+const aboutPost = await getEntry("spec", "about");
+
+if (!aboutPost) {
+	throw new Error("About page content not found");
+}
+
+const { Content } = await render(aboutPost);
+const title = i18n(I18nKey.about);
+---
+<MainGridLayout title={title}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-        <div class="card-base z-10 px-9 py-6 relative w-full prose dark:prose-invert prose-base !max-w-none custom-md mb-6 markdown-content">
-          <div class="mb-4">
-            <h1 class="text-3xl font-bold dark:text-white">私について</h1>
-            <p class="mt-4 text-gray-600 dark:text-gray-400">高専卒業後、某通信会社で音声系サービスの検証と生成AI活用推進を担当するエンジニアです。 本務の音声系サービスの検証に加え、WEBアプリの開発や最近ではWindowsアプリの開発をやっています。</p>
-          </div>
-          <div class="mb-4">
-            <h2 class="text-2xl font-bold dark:text-white">高専</h2>
-            <p class="mt-4 text-gray-600 dark:text-gray-400">高専時代は5年間、宇宙開発研究部に所属し気象観測機器の開発やBalloon Sat・Cube Satの開発をやっていました。 卒業研究ではバルーンサットの開発とCubeSat教材への改良の検討をやっていました。</p>
-            <p class="mt-4 text-gray-600 dark:text-gray-400">宇宙開発研究部ではRaspberry PiやArduinoを用いたセンサ機器の開発や、測定した情報を提供するためのWEBサイトの開発を担当していました。 また、プロダクトマネージメントの経験も積むことができ、社会人となりこれらのスキルが大きく役立っています。</p>
-          </div>
-          <div class="mb-4">
-            <h2 class="text-2xl font-bold dark:text-white">社会人</h2>
-            <p class="mt-4 text-gray-600 dark:text-gray-400">現在は某通信会社にて音声系サービスの検証業務を主に担当しています。統合系サービスのため使われている技術が音声・クラウド・サーバーなど幅広く、多様なスキルが身に付けられ、やりがいを感じています。 品質を担保する最後の砦として日々取り組んでいます。</p>
-            <p class="mt-4 text-gray-600 dark:text-gray-400">最近では生成AIの活用推進も担当しており、主にAzure OpenAIを活用したカイゼン企画、アプリケーションの開発に取り組んでいます。</p>
-          </div>
-          <div class="mb-8">
-            <h2 class="text-2xl font-bold dark:text-white">OFF TIME</h2>
-            <p class="mt-4 text-gray-600 dark:text-gray-400">PC関連のガジェット集め、ゲームをやっています。リモートワークで体を動かす機会が減ったので、毎日ウォーキングとリングフィットをやっています。</p>
-            <p class="mt-4 text-gray-600 dark:text-gray-400">ゲームはスプラトゥーン、ゼルダの伝説にハマっています。</p>
-          </div>
-          <div class="mb-4">
-            <h1 class="text-3xl font-bold dark:text-white">Skill Set</h1>
-          </div>
-          <div class="mb-4">
-            <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-              <div>
-                <h1 class="text-2xl font-bold dark:text-white">Cisco</h1>
-                <ul>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Cisco Unified Communications Manager (CallManager)</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Cisco Unity Connection</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Cisco Unified Communications Manager (IM&Presence)</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Cisco Expressway</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Cisco IOS (Catalyst, ISR, ASR)</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Cisco NX-OS (Nexus)</li>
-                </ul>
-              </div>
-              <div>
-                <h1 class="text-2xl font-bold dark:text-white">Language</h1>
-                <ul>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">HTML</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">CSS</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">JavaScript</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">PHP</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Python</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">TypeScript</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Ansible</li>
-                </ul>
-              </div>
-              <div>
-                <h1 class="text-2xl font-bold dark:text-white">Linux</h1>
-                <ul>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Cent OS</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Red Hat Enterprise Linux</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Ubuntu</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Rocky Linux</li>
-                </ul>
-              </div>
-              <div>
-                <h1 class="text-2xl font-bold dark:text-white">Generative AI</h1>
-                <ul>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">OpenAI</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Azure OpenAI</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Llama</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">LangChain</li>
-                </ul>
-              </div>
-              <div>
-                <h1 class="text-2xl font-bold dark:text-white">Other</h1>
-                <ul>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Apache</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Maria DB</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">PostgreSQL</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Sqlite3</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Smart Data Platform</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Microsoft Azure</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Amazon Web Service</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">VMware vSphere</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Zabbix</li>
-                  <li class="mt-4 text-gray-600 dark:text-gray-400">Electron</li>
-                </ul>
-              </div>
+        <div class="card-base z-10 px-9 py-6 relative w-full">
+            <!-- 页面标题 -->
+            <div class="flex flex-col items-start justify-center mb-8">
+                <h1 class="text-4xl font-bold text-black/90 dark:text-white/90 mb-2 relative
+                          before:w-1 before:h-8 before:rounded-md before:bg-[var(--primary)]
+                          before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-4">
+                    {title}
+                </h1>
             </div>
-          </div>
-          <div class="mb-8">
-            <h1 class="text-3xl font-bold dark:text-white">Special thanks to:</h1>
-            <p class="mt-4 text-gray-600 dark:text-gray-400">
-              <a href="">Astro Mizuki Template</a> is used as the main design template.
-            </p>
-          </div>
+            
+            
+            <!-- 从MD文件读取的内容 -->
+            <Markdown class="mt-2">
+                <Content />
+            </Markdown>
         </div>
     </div>
 </MainGridLayout>

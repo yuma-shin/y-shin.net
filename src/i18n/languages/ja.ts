@@ -6,9 +6,6 @@ export const ja: Translation = {
 	[Key.about]: "について",
 	[Key.archive]: "アーカイブ",
 	[Key.search]: "検索",
-	[Key.work]: "Work",
-  	[Key.awards]: "Awards",
-  	[Key.uses]: "Uses",
 	[Key.other]: "その他",
 
 	[Key.tags]: "タグ",
@@ -20,8 +17,6 @@ export const ja: Translation = {
 	// お知らせ
 	[Key.announcement]: "お知らせ",
 	[Key.announcementClose]: "閉じる",
-
-	[Key.certificates]: "Certificates",
 
 	[Key.comments]: "コメント",
 	[Key.friends]: "友達",
@@ -53,14 +48,12 @@ export const ja: Translation = {
 	// アニメページ
 	[Key.animeTitle]: "私のアニメリスト",
 	[Key.animeSubtitle]: "私の二次元の旅を記録する",
-	[Key.animeList]: "アニメリスト",
-	[Key.animeTotal]: "合計",
-	[Key.animeWatching]: "視聴中",
-	[Key.animeCompleted]: "完了",
-	[Key.animeAvgRating]: "平均評価",
 	[Key.animeStatusWatching]: "視聴中",
 	[Key.animeStatusCompleted]: "完了",
 	[Key.animeStatusPlanned]: "予定",
+	[Key.animeStatusOnHold]: "一時停止",
+	[Key.animeStatusDropped]: "中断",
+	[Key.animeFilterAll]: "すべて",
 	[Key.animeYear]: "年",
 	[Key.animeStudio]: "スタジオ",
 	[Key.animeEmpty]: "アニメデータなし",
@@ -123,6 +116,9 @@ export const ja: Translation = {
 	[Key.projectsPlanned]: "予定",
 	[Key.projectsDemo]: "ライブデモ",
 	[Key.projectsSource]: "ソースコード",
+	[Key.projectsVisit]: "プロジェクトへ",
+	[Key.projectsGitHub]: "GitHub",
+	// [Key.projectsGitee]: "Gitee",  // Giteeサポートを削除
 
 	// RSSページ
 	[Key.rss]: "RSSフィード",
@@ -211,14 +207,11 @@ export const ja: Translation = {
 	[Key.timelineCurrent]: "現在の状態",
 	[Key.timelineHistory]: "履歴",
 	[Key.timelineAchievements]: "実績",
-	[Key.timelineStatistics]: "統計",
-	[Key.timelineByType]: "タイプ別グループ化",
-	[Key.timelineWorkExperience]: "職歴",
-	[Key.timelineTotalExperience]: "総職歴",
-	[Key.timelineWorkPositions]: "職位数",
-	[Key.timelineCurrentRole]: "現在の状態",
-	[Key.timelineEmployed]: "在職中",
-	[Key.timelineAvailable]: "入社可能",
+	[Key.timelineStartDate]: "開始日",
+	[Key.timelineDuration]: "期間",
+
+	// その他
+	[Key.noData]: "データなし",
 
 	// パスワード保護
 	[Key.passwordProtected]: "パスワード保護",
@@ -251,4 +244,9 @@ export const ja: Translation = {
 	[Key.hour]: "時間",
 	[Key.minute]: "分",
 	[Key.second]: "秒",
+
+	// 壁紙モード
+	[Key.wallpaperBanner]: "バナーモード",
+	[Key.wallpaperFullscreen]: "全画面モード",
+	[Key.wallpaperNone]: "壁紙を非表示",
 };

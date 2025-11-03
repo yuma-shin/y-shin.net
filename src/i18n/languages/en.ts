@@ -6,9 +6,6 @@ export const en: Translation = {
 	[Key.about]: "About",
 	[Key.archive]: "Archive",
 	[Key.search]: "Search",
-	[Key.work]: "Work",
-  	[Key.awards]: "Awards",
-  	[Key.uses]: "Uses",
 	[Key.other]: "Other",
 
 	[Key.tags]: "Tags",
@@ -20,8 +17,6 @@ export const en: Translation = {
 	// Announcement
 	[Key.announcement]: "Announcement",
 	[Key.announcementClose]: "Close",
-
-	[Key.certificates]: "Certificates",
 
 	[Key.comments]: "Comments",
 	[Key.friends]: "Friends",
@@ -53,14 +48,12 @@ export const en: Translation = {
 	// Anime Page
 	[Key.animeTitle]: "My Anime List",
 	[Key.animeSubtitle]: "Record my anime journey",
-	[Key.animeList]: "Anime List",
-	[Key.animeTotal]: "Total",
-	[Key.animeWatching]: "Watching",
-	[Key.animeCompleted]: "Completed",
-	[Key.animeAvgRating]: "Average Rating",
 	[Key.animeStatusWatching]: "Watching",
 	[Key.animeStatusCompleted]: "Completed",
 	[Key.animeStatusPlanned]: "Planned",
+	[Key.animeStatusOnHold]: "On Hold",
+	[Key.animeStatusDropped]: "Dropped",
+	[Key.animeFilterAll]: "All",
 	[Key.animeYear]: "Year",
 	[Key.animeStudio]: "Studio",
 	[Key.animeEmpty]: "No anime data",
@@ -123,6 +116,8 @@ export const en: Translation = {
 	[Key.projectsPlanned]: "Planned",
 	[Key.projectsDemo]: "Live Demo",
 	[Key.projectsSource]: "Source Code",
+	[Key.projectsVisit]: "Visit Project",
+	[Key.projectsGitHub]: "GitHub",
 
 	// RSS Page
 	[Key.rss]: "RSS Feed",
@@ -131,7 +126,7 @@ export const en: Translation = {
 		"Subscribe via RSS to get the latest articles and updates imediately",
 	[Key.rssLink]: "RSS Link",
 	[Key.rssCopyToReader]: "Copy link to your RSS reader",
-	[Key.rssCopyLink]: "Copy Link",
+	[Key.rssCopyLink]: "Copy",
 	[Key.rssLatestPosts]: "Latest Posts",
 	[Key.rssWhatIsRSS]: "What is RSS?",
 	[Key.rssWhatIsRSSDescription]:
@@ -153,7 +148,7 @@ export const en: Translation = {
 		"Subscribe via Atom to get the latest articles and updates immediately",
 	[Key.atomLink]: "Atom Link",
 	[Key.atomCopyToReader]: "Copy link to your Atom reader",
-	[Key.atomCopyLink]: "Copy Link",
+	[Key.atomCopyLink]: "Copy",
 	[Key.atomLatestPosts]: "Latest Posts",
 	[Key.atomWhatIsAtom]: "What is Atom?",
 	[Key.atomWhatIsAtomDescription]:
@@ -167,7 +162,12 @@ export const en: Translation = {
 		"It is recommended to use Feedly, Inoreader or other Atom readers to subscribe to this site.",
 	[Key.atomCopied]: "Atom link copied to clipboard!",
 	[Key.atomCopyFailed]: "Copy failed, please copy the link manually",
-	
+
+	// Wallpaper mode
+	[Key.wallpaperBanner]: "Banner Mode",
+	[Key.wallpaperFullscreen]: "Fullscreen Mode",
+	[Key.wallpaperNone]: "Hide Wallpaper",
+
 	// Skills Page
 	[Key.skills]: "Skills",
 	[Key.skillsSubtitle]: "My technical skills and expertise",
@@ -192,8 +192,9 @@ export const en: Translation = {
 	[Key.skillsAdvancedTitle]: "Professional Skills",
 	[Key.skillsProjects]: "Related Projects",
 	[Key.skillsDistribution]: "Skill Distribution",
-	[Key.skillsByLevel]: "Distribution by Level",
-	[Key.skillsByCategory]: "Distribution by Category",
+	[Key.skillsByLevel]: "By Level",
+	[Key.skillsByCategory]: "By Category",
+	[Key.noData]: "No data",
 
 	// Timeline Page
 	[Key.timeline]: "Timeline",
@@ -213,14 +214,8 @@ export const en: Translation = {
 	[Key.timelineCurrent]: "Current Status",
 	[Key.timelineHistory]: "History",
 	[Key.timelineAchievements]: "Achievements",
-	[Key.timelineStatistics]: "Statistics",
-	[Key.timelineByType]: "Grouped by Type",
-	[Key.timelineWorkExperience]: "Work Experience",
-	[Key.timelineTotalExperience]: "Total Work Experience",
-	[Key.timelineWorkPositions]: "Work Positions",
-	[Key.timelineCurrentRole]: "Current Status",
-	[Key.timelineEmployed]: "Employed",
-	[Key.timelineAvailable]: "Available",
+	[Key.timelineStartDate]: "Start Date",
+	[Key.timelineDuration]: "Duration",
 
 	// Password Protection
 	[Key.passwordProtected]: "Password Protected",
@@ -246,10 +241,10 @@ export const en: Translation = {
 	// Last Modified Time Card
 	[Key.lastModifiedPrefix]: "Time since last edit: ",
 	[Key.lastModifiedOutdated]: "Some information may be outdated",
-	[Key.year]: "Y ",
-	[Key.month]: "M ",
-	[Key.day]: "D ",
-	[Key.hour]: "H ",
-	[Key.minute]: "Min ",
-	[Key.second]: "Sec",
+	[Key.year]: "y",
+	[Key.month]: "m",
+	[Key.day]: "d",
+	[Key.hour]: "h",
+	[Key.minute]: "min",
+	[Key.second]: "s",
 };
