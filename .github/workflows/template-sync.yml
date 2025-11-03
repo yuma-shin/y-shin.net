@@ -1,0 +1,22 @@
+name: Sync Mizuki template
+on:
+  workflow_dispatch:
+  schedule:
+    # 毎週月曜 03:00(JST) 実行（UTCだと前日日曜18:00）
+    - cron: "0 18 * * 0"
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: actions-template-sync
+        uses: AndreasAugustin/actions-template-sync@v2
+        with:
+          source_repo_path: matsuzaka-yuki/Mizuki  # テンプレ元
+          upstream_branch: master                  # テンプレ側の既定ブランチ
+          pr_labels: template_sync,mizuki
+          # （必要に応じて）pr_title や pr_body, pr_reviewers も指定可
