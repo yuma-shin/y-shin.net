@@ -119,7 +119,7 @@ export const siteConfig: SiteConfig = {
 
 		homeText: {
 			enable: true, // 在主页显示自定义文本
-			title: "Welcome Yumrith", // 主页横幅主标题
+			title: "Welcome to Yumrith", // 主页横幅主标题
 
 			subtitle: [
 				"Yuma Shintani Website",
