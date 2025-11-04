@@ -29,7 +29,7 @@ import remarkLinkCard from "remark-link-card";
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://mizuki.mysqil.com/",
+	site: "https://www.y-shin.net/",
 
 	base: "/",
 	trailingSlash: "always",
@@ -65,6 +65,7 @@ export default defineConfig({
 				"fa6-regular": ["*"],
 				"fa6-solid": ["*"],
 				mdi: ["*"],
+				"simple-icons": ["*"],
 			},
 		}),
 		expressiveCode({

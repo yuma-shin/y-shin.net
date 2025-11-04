@@ -1,9 +1,6 @@
 // Timeline data configuration file
 // Used to manage data for the timeline page
 
-import { deselectScripts } from "astro/dist/transitions/swap-functions";
-import { mount } from "svelte";
-
 export interface TimelineItem {
 	id: string;
 	title: string;
@@ -23,15 +20,7 @@ export interface TimelineItem {
 	}[];
 	icon?: string; // Iconify icon name
 	color?: string;
-	year?: string; // Year label for grouping
 	featured?: boolean;
-  eventData?:{
-    month: string;
-    events: {
-      title: string;
-      description: string;
-    }[];
-  }
 }
 
 export const timelineData: TimelineItem[] = [
@@ -52,35 +41,7 @@ export const timelineData: TimelineItem[] = [
 		],
 		icon: "material-symbols:school",
 		color: "#059669",
-		year: "2023",
 		featured: true,
-	},
-	{
-		id: "2028",
-		eventData: [
-			{
-				month:"2月",
-				events: [
-					{
-						title:"平成29年度 学生表彰 功労賞(団体)",
-            description:"平成29年度 学生表彰 功労賞(団体)を受賞。第6回高校・高専「気象観測機器コンテスト」での優秀賞を評価。",
-					}
-				],
-			},
-      {
-        mounth:"10月",
-        events: [
-          {
-            title:"第29回全国高等専門学校プログラミングコンテスト 自由部門 優秀賞",
-            description:"第29回全国高等専門学校プログラミングコンテスト 自由部門にぷらねっと -ARを用いた植物栽培教育支援システム-を出展し優秀賞を受賞。",
-          },
-          {
-            title:"NAPROCK 10th International Programming Contest In The Original Section SECOND PRISE",
-            description:"NAPROCK 10th International Programming Contest In The Original Sectionにぷらねっと -ARを用いた植物栽培教育支援システム-を出展しSECOND PRISEを受賞。",
-          }
-        ], 
-      }
-		]
 	},
 	{
 		id: "mizuki-blog-project",

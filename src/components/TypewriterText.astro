@@ -17,186 +17,136 @@ const {
 const textData = Array.isArray(text) ? JSON.stringify(text) : text;
 ---
 
-<span
-  class={`typewriter ${className}`}
-  data-text={textData}
-  data-speed={speed}
-  data-delete-speed={deleteSpeed}
-  data-pause-time={pauseTime}
-/>
+<span class={`typewriter ${className}`} data-text={textData} data-speed={speed} data-delete-speed={deleteSpeed} data-pause-time={pauseTime}></span>
 
-<script type="module">
-  // ---- ユーティリティ ----
-  const GLOBAL = '__TypewriterGlobal__';
-  const ELEM_PROP = '__twInst__';
+<script>
+class TypewriterEffect {
+    private element: HTMLElement;
+    private texts: string[];
+    private currentTextIndex: number = 0;
+    private speed: number;
+    private deleteSpeed: number;
+    private pauseTime: number;
+    private currentIndex: number = 0;
+    private isDeleting: boolean = false;
+    private timeoutId: number | null = null;
 
-  // グローバルシングルトン（イベント多重登録防止）
-  window[GLOBAL] ||= {
-    bound: false,
-  };
-
-  class TypewriterEffect {
-    /** @type {HTMLElement|null} */ el = null;
-    texts = [];
-    currentTextIndex = 0;
-    speed = 100;
-    deleteSpeed = 50;
-    pauseTime = 2000;
-    currentIndex = 0;
-    isDeleting = false;
-    timeoutId = null;
-
-    /** @param {HTMLElement} el */
-    constructor(el) {
-      if (!(el instanceof HTMLElement)) return; // 防御
-      this.el = el;
-
-      // 要素がなければ即終了
-      if (!this.el) return;
-
-      // dataset は常に防御的に読む
-      const d = this.el.dataset ?? {};
-      const raw = d.text ?? '';
-      try {
-        const parsed = JSON.parse(raw);
-        this.texts = Array.isArray(parsed) ? parsed : [String(raw)];
-      } catch {
-        this.texts = [String(raw)];
-      }
-      this.speed       = Number.parseInt(d.speed ?? '100', 10);
-      this.deleteSpeed = Number.parseInt(d.deleteSpeed ?? '50', 10);
-      this.pauseTime   = Number.parseInt(d.pauseTime ?? '2000', 10);
-
-      if (this.texts.length > 1 && !this.isTypewriterEnabled(d)) {
-        this.showRandomText();
-      } else {
-        this.start();
-      }
-    }
-
-    isTypewriterEnabled(d) {
-      return d.speed !== undefined || d.deleteSpeed !== undefined || d.pauseTime !== undefined;
-    }
-
-    showRandomText() {
-      if (!this.el) return;
-      const i = Math.floor(Math.random() * this.texts.length);
-      this.el.textContent = this.texts[i] ?? '';
-    }
-
-    start() {
-      if (this.texts.length === 0) return;
-      this.loop();
-    }
-
-    getCurrentText() {
-      return this.texts[this.currentTextIndex] ?? '';
-    }
-
-    loop() {
-      // 要素がもう存在しない/DOM外なら終了
-      if (!this.el || !document.body.contains(this.el)) {
-        this.destroy();
-        return;
-      }
-
-      const current = this.getCurrentText();
-
-      if (this.isDeleting) {
-        if (this.currentIndex > 0) {
-          this.currentIndex--;
-          this.el.textContent = current.slice(0, this.currentIndex);
-          this.timeoutId = window.setTimeout(() => this.loop(), this.deleteSpeed);
-        } else {
-          this.isDeleting = false;
-          this.currentTextIndex = (this.currentTextIndex + 1) % this.texts.length;
-          this.timeoutId = window.setTimeout(() => this.loop(), this.speed);
+    constructor(element: HTMLElement) {
+        this.element = element;
+        const textData = element.dataset.text || '';
+        
+        // 尝试解析为JSON数组，如果失败则作为单个字符串处理
+        try {
+            const parsed = JSON.parse(textData);
+            this.texts = Array.isArray(parsed) ? parsed : [textData];
+        } catch {
+            this.texts = [textData];
         }
-      } else {
-        if (this.currentIndex < current.length) {
-          this.currentIndex++;
-          this.el.textContent = current.slice(0, this.currentIndex);
-          this.timeoutId = window.setTimeout(() => this.loop(), this.speed);
+        
+        this.speed = parseInt(element.dataset.speed || '100');
+        this.deleteSpeed = parseInt(element.dataset.deleteSpeed || '50');
+        this.pauseTime = parseInt(element.dataset.pauseTime || '2000');
+        
+        // 如果有多条文本且未启用打字机效果，随机显示一条
+        if (this.texts.length > 1 && !this.isTypewriterEnabled()) {
+            this.showRandomText();
         } else {
-          if (this.texts.length > 1) {
-            this.isDeleting = true;
-            this.timeoutId = window.setTimeout(() => this.loop(), this.pauseTime);
-          }
+            this.start();
         }
-      }
     }
 
-    destroy() {
-      if (this.timeoutId != null) {
-        clearTimeout(this.timeoutId);
-        this.timeoutId = null;
-      }
-      if (this.el) {
-        // マーカーを消す
-        delete this.el.dataset.twInited;
-        delete this.el[ELEM_PROP];
-      }
-      this.el = null;
+    private isTypewriterEnabled(): boolean {
+        // 检查是否有打字机相关的数据属性
+        return this.element.dataset.speed !== undefined || 
+               this.element.dataset.deleteSpeed !== undefined || 
+               this.element.dataset.pauseTime !== undefined;
     }
-  }
 
-  function initAll(root = document) {
-    // 差し替え完了後に走るので、最新DOMだけを見る
-    const nodes = root.querySelectorAll('.typewriter');
-    nodes.forEach((n) => {
-      const el = n instanceof HTMLElement ? n : null;
-      if (!el) return;
-      if (el.dataset.twInited === '1' && el[ELEM_PROP]) return; // 多重防止
-      const inst = new TypewriterEffect(el);
-      el[ELEM_PROP] = inst;
-      el.dataset.twInited = '1';
+    private showRandomText() {
+        const randomIndex = Math.floor(Math.random() * this.texts.length);
+        this.element.textContent = this.texts[randomIndex];
+    }
+
+    private start() {
+        if (this.texts.length === 0) return;
+        this.type();
+    }
+
+    private getCurrentText(): string {
+        return this.texts[this.currentTextIndex] || '';
+    }
+
+    private type() {
+        const currentText = this.getCurrentText();
+        
+        if (this.isDeleting) {
+            // 删除字符
+            if (this.currentIndex > 0) {
+                this.currentIndex--;
+                this.element.textContent = currentText.substring(0, this.currentIndex);
+                this.timeoutId = window.setTimeout(() => this.type(), this.deleteSpeed);
+            } else {
+                // 删除完成，切换到下一条文本
+                this.isDeleting = false;
+                this.currentTextIndex = (this.currentTextIndex + 1) % this.texts.length;
+                this.timeoutId = window.setTimeout(() => this.type(), this.speed);
+            }
+        } else {
+            // 添加字符
+            if (this.currentIndex < currentText.length) {
+                this.currentIndex++;
+                this.element.textContent = currentText.substring(0, this.currentIndex);
+                this.timeoutId = window.setTimeout(() => this.type(), this.speed);
+            } else {
+                // 打字完成，暂停后开始删除（如果有多条文本）
+                if (this.texts.length > 1) {
+                    this.isDeleting = true;
+                    this.timeoutId = window.setTimeout(() => this.type(), this.pauseTime);
+                } else {
+                    // 如果只有一条文本，保持显示不删除，但确保元素有内容
+                    if (this.texts.length === 1 && this.texts[0] === '') {
+                        this.element.innerHTML = '&nbsp;'; // 使用不间断空格保持布局
+                    }
+                }
+            }
+        }
+    }
+
+    public destroy() {
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+        }
+    }
+}
+
+// 初始化所有打字机效果
+document.addEventListener('DOMContentLoaded', () => {
+    const typewriterElements = document.querySelectorAll('.typewriter');
+    typewriterElements.forEach((element) => {
+        new TypewriterEffect(element as HTMLElement);
     });
-  }
+});
 
-  function destroyAll(root = document) {
-    const nodes = root.querySelectorAll('.typewriter');
-    nodes.forEach((n) => {
-      const el = n instanceof HTMLElement ? n : null;
-      el?.[ELEM_PROP]?.destroy?.();
+// 支持页面切换时重新初始化
+document.addEventListener('swup:contentReplaced', () => {
+    const typewriterElements = document.querySelectorAll('.typewriter');
+    typewriterElements.forEach((element) => {
+        new TypewriterEffect(element as HTMLElement);
     });
-  }
-
-  // --- 初回: DOM構築完了後に初期化 ---
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => initAll(), { once: true });
-  } else {
-    // 既にロード済
-    initAll();
-  }
-
-  // --- Swup連携（多重バインド防止） ---
-  if (!window[GLOBAL].bound) {
-    // 次の差し替えに入る直前に全破棄（古いタイマー停止）
-    document.addEventListener('swup:willReplace', () => {
-      destroyAll(document);
-    }, { passive: true });
-
-    // 差し替え完了後（DOM確定）に再初期化
-    // pageView は最も安定（contentReplaced より後でも来る）
-    document.addEventListener('swup:pageView', () => {
-      // フレームの描画を待つと更に安全
-      requestAnimationFrame(() => initAll(document));
-    }, { passive: true });
-
-    window[GLOBAL].bound = true;
-  }
+});
 </script>
 
 <style>
-  .typewriter { position: relative; }
-  .typewriter::after {
-    content: "|";
-    animation: blink 1s infinite;
-    margin-left: 2px;
-  }
-  @keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%,100% { opacity: 0; }
-  }
-</style>
+.typewriter {
+    position: relative;
+    min-height: 1.5em; /* 确保即使没有文字也保持最小高度 */
+    display: inline-block;
+    vertical-align: baseline;
+}
 
+/* 确保打字机效果不会导致布局抖动 */
+.typewriter:empty::before {
+    content: '\00A0'; /* 使用不间断空格保持高度 */
+    visibility: hidden;
+}
+</style>

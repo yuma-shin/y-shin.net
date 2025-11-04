@@ -14,7 +14,6 @@ import type {
 } from "./types/config";
 import { LinkPreset } from "./types/config";
 
-
 // 移除i18n导入以避免循环依赖
 
 // 定义站点语言
@@ -31,6 +30,25 @@ export const siteConfig: SiteConfig = {
 		fixed: false, // 对访问者隐藏主题色选择器
 	},
 
+	// 特色页面开关配置(关闭不在使用的页面有助于提升SEO,关闭后直接在顶部导航删除对应的页面就行)
+	featurePages: {
+		anime: false, // 番剧页面开关
+		diary: false, // 日记页面开关
+		friends: false, // 友链页面开关
+		projects: false, // 项目页面开关
+		skills: false, // 技能页面开关
+		timeline: false, // 时间线页面开关
+		albums: false, // 相册页面开关
+	},
+
+	// 顶栏标题配置
+	navbarTitle: {
+		// 顶栏标题文本
+		text: "Yumrith",
+		// 顶栏标题图标路径，默认使用 public/assets/home/home.png
+		icon: "assets/home/nav-avatar.png",
+	},
+
 	/*
 	bangumi: {
 		userId: "your-bangumi-id", // 在此处设置你的Bangumi用户ID，可以设置为 "sai" 测试
@@ -40,6 +58,20 @@ export const siteConfig: SiteConfig = {
 		mode: "local", // 番剧页面模式："bangumi" 使用Bangumi API，"local" 使用本地配置
 	},
 	*/
+
+	// 文章列表布局配置
+	postListLayout: {
+		// 默认布局模式："list" 列表模式（单列布局），"grid" 网格模式（双列布局）
+		defaultMode: "list",
+		// 是否允许用户切换布局
+		allowSwitch: true,
+	},
+
+	// 标签样式配置
+	tagStyle: {
+		// 是否使用新样式（悬停高亮样式）还是旧样式（外框常亮样式）
+		useNewStyle: false,
+	},
 
 	banner: {
 		enable: true, // 是否启动Banner壁纸模式
@@ -64,7 +96,14 @@ export const siteConfig: SiteConfig = {
 
 		carousel: {
 			enable: true, // 为 true 时：为多张图片启用轮播。为 false 时：从数组中随机显示一张图片
+
 			interval: 5, // 轮播间隔时间（秒）
+		},
+
+		waves: {
+			enable: true, // 是否启用水波纹效果(这个功能比较吃性能)
+			performanceMode: false, // 性能模式：减少动画复杂度(性能提升40%)
+			mobileDisable: false, // 移动端禁用
 		},
 
 		// PicFlow API支持(智能图片API)
@@ -80,11 +119,12 @@ export const siteConfig: SiteConfig = {
 
 		homeText: {
 			enable: true, // 在主页显示自定义文本
-			title: "Yumrith", // 主页横幅主标题
+			title: "Welcome Yumrith", // 主页横幅主标题
 
 			subtitle: [
 				"Yuma Shintani Website",
-				"Engineer of Voice Communication, Network, Cloud and Generative AI",
+				"Corporate IT Engineer",
+				"Quality Assurance・Automated Test Engineer",
 			],
 			typewriter: {
 				enable: true, // 启用副标题打字机效果
@@ -96,6 +136,7 @@ export const siteConfig: SiteConfig = {
 
 		credit: {
 			enable: false, // 显示横幅图片来源文本
+
 			text: "Describe", // 要显示的来源文本
 			url: "", // （可选）原始艺术品或艺术家页面的 URL 链接
 		},
@@ -103,12 +144,19 @@ export const siteConfig: SiteConfig = {
 		navbar: {
 			transparentMode: "semifull", // 导航栏透明模式："semi" 半透明加圆角，"full" 完全透明，"semifull" 动态透明
 		},
+
+		// 整体布局方案切换按钮显示设置（默认："desktop"）
+		// "off" = 不显示
+		// "mobile" = 仅在移动端显示
+		// "desktop" = 仅在桌面端显示
+		// "both" = 在所有设备上显示
+		showModeSwitchOnMobile: "desktop",
 	},
 	toc: {
 		enable: true, // 启用目录功能
 		depth: 3, // 目录深度，1-6，1 表示只显示 h1 标题，2 表示显示 h1 和 h2 标题，依此类推
 	},
-	generateOgImages: true, // 启用生成OpenGraph图片功能,注意开启后要渲染很长时间，不建议本地调试的时候开启
+	generateOgImages: false, // 启用生成OpenGraph图片功能,注意开启后要渲染很长时间，不建议本地调试的时候开启
 	favicon: [
 		// 留空以使用默认 favicon
 		// {
@@ -127,36 +175,28 @@ export const siteConfig: SiteConfig = {
 			enable: false, // 启用 Hanalei 字体作为全局字体，适合中文去使用
 		},
 	},
-	showLastModified: true, // 控制“上次编辑”卡片显示的开关
+	showLastModified: false, // 控制“上次编辑”卡片显示的开关
 };
 export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
 	enable: true, // 启用全屏壁纸功能,非Banner模式下生效
 	src: {
 		desktop: [
-			"/assets/desktop-banner/d1.webp",
-			"/assets/desktop-banner/d2.webp",
-			"/assets/desktop-banner/d3.webp",
-			"/assets/desktop-banner/d4.webp",
-			"/assets/desktop-banner/d5.webp",
-			"/assets/desktop-banner/d6.webp",
-			"/assets/desktop-banner/d7.webp",
-			"/assets/desktop-banner/d8.webp",
+			"/assets/desktop-banner/wallpaper.png",
+			"/assets/desktop-banner/wallpaper-3.png",
+			"/assets/desktop-banner/wallpaper-2.webp",
+			"/assets/desktop-banner/wallpaper-4.webp",
 		], // 桌面横幅图片
 		mobile: [
-			"/assets/mobile-banner/m1.webp",
-			"/assets/mobile-banner/m2.webp",
-			"/assets/mobile-banner/m3.webp",
-			"/assets/mobile-banner/m4.webp",
-			"/assets/mobile-banner/m5.webp",
-			"/assets/mobile-banner/m6.webp",
-			"/assets/mobile-banner/m7.webp",
-			"/assets/mobile-banner/m8.webp",
+			"/assets/desktop-banner/wallpaper.png",
+			"/assets/desktop-banner/wallpaper-3.png",
+			"/assets/desktop-banner/wallpaper-2.webp",
+			"/assets/desktop-banner/wallpaper-4.webp",
 		], // 移动横幅图片
 	}, // 使用本地横幅图片
 	position: "center", // 壁纸位置，等同于 object-position
 	carousel: {
 		enable: true, // 启用轮播
-		interval: 1, // 轮播间隔时间（秒）
+		interval: 5, // 轮播间隔时间（秒）
 	},
 	zIndex: -1, // 层级，确保壁纸在背景层
 	opacity: 0.8, // 壁纸透明度
@@ -166,13 +206,13 @@ export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
 export const navBarConfig: NavBarConfig = {
 	links: [
 		LinkPreset.Home,
-    LinkPreset.About,
+    	LinkPreset.About,
 		LinkPreset.Archive,
-    LinkPreset.Work,
-    LinkPreset.Awards,
-    LinkPreset.Uses,
+		LinkPreset.Work,
+		LinkPreset.Awards,
+		LinkPreset.Uses,
 		// 支持自定义导航栏链接,并且支持多级菜单,3.1版本新加
-    /*
+		/*
 		{
 			name: "Links",
 			url: "/links/",
@@ -240,14 +280,14 @@ export const navBarConfig: NavBarConfig = {
 				},
 			],
 		},
-    */
+		*/
 	],
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "assets/images/demo-avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+  avatar: "assets/images/avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
   name: "Yuma Shintani",
-  bio: "社会人7年目のエンジニアです。某通信会社にて音声系サービスの検証業務と生成AI活用推進およびアプリケーション開発を担当しています。",
+  bio: "社会人7年目のエンジニアです。某ゲームメーカーにて社内システムの検証・自動テスト開発を担当しています。",
   links: [
     {
       name: "GitHub",
@@ -284,15 +324,6 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	theme: "github-dark",
 };
 
-/*
-export const commentConfig: CommentConfig = {
-	enable: false, // 启用评论功能。当设置为 false 时，评论组件将不会显示在文章区域。
-	twikoo: {
-		envId: "https://twikoo.vercel.app",
-		lang: "en", // 设置 Twikoo 评论系统语言为英文
-	},
-};
-*/
 export const commentConfig: CommentConfig = {
   enable: true,
   giscus: {
@@ -310,6 +341,16 @@ export const commentConfig: CommentConfig = {
     loading: 'lazy',
   },
 }
+
+/*
+export const commentConfig: CommentConfig = {
+	enable: false, // 启用评论功能。当设置为 false 时，评论组件将不会显示在文章区域。
+	twikoo: {
+		envId: "https://twikoo.vercel.app",
+		lang: "en", // 设置 Twikoo 评论系统语言为英文
+	},
+};
+*/
 
 export const announcementConfig: AnnouncementConfig = {
 	title: "Announcement", // 公告标题
@@ -360,7 +401,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 			// 动画延迟时间（毫秒），用于错开动画效果
 			animationDelay: 0,
 		},
-    {
+		{
 			// 组件类型：用户资料组件
 			type: "certificates",
 			// 是否启用该组件
@@ -470,6 +511,10 @@ export const sakuraConfig: SakuraConfig = {
 		min: 0.5, // 樱花最小尺寸倍数
 		max: 1.1, // 樱花最大尺寸倍数
 	},
+	opacity: {
+		min: 0.3, // 樱花最小不透明度
+		max: 0.9, // 樱花最大不透明度
+	},
 	speed: {
 		horizontal: {
 			min: -1.7, // 水平移动速度最小值
@@ -480,11 +525,13 @@ export const sakuraConfig: SakuraConfig = {
 			max: 2.2, // 垂直移动速度最大值
 		},
 		rotation: 0.03, // 旋转速度
+		fadeSpeed: 0.03, // 消失速度，不应大于最小不透明度
 	},
 	zIndex: 100, // 层级，确保樱花在合适的层级显示
 };
 
 // Pio 看板娘配置
+/*
 export const pioConfig: import("./types/config").PioConfig = {
 	enable: false, // 启用看板娘
 	models: ["/pio/models/pio/model.json"], // 默认模型路径
@@ -507,6 +554,7 @@ export const pioConfig: import("./types/config").PioConfig = {
 		link: "https://github.com/matsuzaka-yuki/Mizuki", // 关于链接
 	},
 };
+*/
 
 // 导出所有配置的统一接口
 export const widgetConfigs = {
@@ -516,12 +564,12 @@ export const widgetConfigs = {
 	layout: sidebarLayoutConfig,
 	sakura: sakuraConfig,
 	fullscreenWallpaper: fullscreenWallpaperConfig,
-	pio: pioConfig, // 添加 pio 配置
+	//pio: pioConfig, // 添加 pio 配置
 } as const;
 
 export const umamiConfig = {
 	enabled: false, // 是否显示Umami统计
-	apiKey: "api_XXXXXXXXXX", // 你的API密钥
+	apiKey: import.meta.env.UMAMI_API_KEY || "api_xxxxxxxx", // API密钥优先从环境变量读取，否则使用配置文件中的值
 	baseUrl: "https://api.umami.is", // Umami Cloud API地址
 	scripts: `
 <script defer src="XXXX.XXX" data-website-id="ABCD1234"></script>
