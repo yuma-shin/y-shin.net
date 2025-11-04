@@ -202,7 +202,7 @@
 
 .rlc-image-container {
   position: relative;
-  flex: 1 1 100px;
+  flex: 1 1 80px;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   padding: 0.5rem;
