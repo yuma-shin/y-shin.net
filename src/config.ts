@@ -83,12 +83,16 @@ export const siteConfig: SiteConfig = {
 				"/assets/desktop-banner/wallpaper-3.png",
 				"/assets/desktop-banner/wallpaper-2.webp",
 				"/assets/desktop-banner/wallpaper-4.webp",
+				"/assets/desktop-banner/wallpaper-5.webp",
+				"/assets/desktop-banner/wallpaper-6.webp",
 			], // 桌面横幅图片
 			mobile: [
 				"/assets/desktop-banner/wallpaper.png",
 				"/assets/desktop-banner/wallpaper-3.png",
 				"/assets/desktop-banner/wallpaper-2.webp",
 				"/assets/desktop-banner/wallpaper-4.webp",
+				"/assets/desktop-banner/wallpaper-5.webp",
+				"/assets/desktop-banner/wallpaper-6.webp",
 			], // 移动横幅图片
 		}, // 使用本地横幅图片
 
@@ -185,12 +189,16 @@ export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
 			"/assets/desktop-banner/wallpaper-3.png",
 			"/assets/desktop-banner/wallpaper-2.webp",
 			"/assets/desktop-banner/wallpaper-4.webp",
+			"/assets/desktop-banner/wallpaper-5.webp",
+			"/assets/desktop-banner/wallpaper-6.webp",
 		], // 桌面横幅图片
 		mobile: [
 			"/assets/desktop-banner/wallpaper.png",
 			"/assets/desktop-banner/wallpaper-3.png",
 			"/assets/desktop-banner/wallpaper-2.webp",
 			"/assets/desktop-banner/wallpaper-4.webp",
+			"/assets/desktop-banner/wallpaper-5.webp",
+			"/assets/desktop-banner/wallpaper-6.webp",
 		], // 移动横幅图片
 	}, // 使用本地横幅图片
 	position: "center", // 壁纸位置，等同于 object-position
@@ -206,10 +214,17 @@ export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
 export const navBarConfig: NavBarConfig = {
 	links: [
 		LinkPreset.Home,
-    	LinkPreset.About,
+		{
+			name: "My",
+			url: "/content/",
+			icon: "material-symbols:person",
+			children: [
+				LinkPreset.About,
+				LinkPreset.Awards,
+			],
+		},
 		LinkPreset.Archive,
 		LinkPreset.Work,
-		LinkPreset.Awards,
 		LinkPreset.Uses,
 		// 支持自定义导航栏链接,并且支持多级菜单,3.1版本新加
 		/*
