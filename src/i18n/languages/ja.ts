@@ -2,14 +2,14 @@ import Key from "../i18nKey";
 import type { Translation } from "../translation";
 
 export const ja: Translation = {
-	[Key.home]: "ホーム",
-	[Key.about]: "について",
-	[Key.archive]: "アーカイブ",
-	[Key.search]: "検索",
+	[Key.home]: "Home",
+	[Key.about]: "About",
+	[Key.archive]: "Archive",
+	[Key.search]: "Search",
 	[Key.work]: "Work",
   	[Key.awards]: "Awards",
   	[Key.uses]: "Uses",
-	[Key.other]: "その他",
+	[Key.other]: "Other",
 
 	[Key.tags]: "タグ",
 	[Key.categories]: "カテゴリ",
@@ -251,7 +251,7 @@ export const ja: Translation = {
 	[Key.second]: "秒",
 
 	// 壁紙モード
-	[Key.wallpaperBanner]: "バナーモード",
-	[Key.wallpaperFullscreen]: "全画面モード",
-	[Key.wallpaperNone]: "壁紙を非表示",
+	[Key.wallpaperBanner]: "Banner Mode",
+	[Key.wallpaperFullscreen]: "Fullscreen Mode",
+	[Key.wallpaperNone]: "Hide Wallpaper",
 };
