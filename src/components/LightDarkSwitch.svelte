@@ -64,10 +64,10 @@ if (typeof window !== 'undefined') {
 <div class="relative z-50">
     <button aria-label="Light/Dark Mode" class="relative btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90" id="scheme-switch" onclick={toggleScheme}>
         <div class="absolute" class:opacity-0={mode !== LIGHT_MODE}>
-            <Icon icon="material-symbols:wb-sunny-outline-rounded" class="text-[1.25rem]"></Icon>
+            <Icon icon="line-md:sunny-loop" class="text-[1.25rem]"></Icon>
         </div>
         <div class="absolute" class:opacity-0={mode !== DARK_MODE}>
-            <Icon icon="material-symbols:dark-mode-outline-rounded" class="text-[1.25rem]"></Icon>
+            <Icon icon="line-md:sunny-outline-to-moon-alt-loop-transition" class="text-[1.25rem]"></Icon>
         </div>
     </button>
 </div>
