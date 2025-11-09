@@ -19,7 +19,6 @@ import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
 import { profileConfig, siteConfig } from "../../config";
 import { formatDateToYYYYMMDD } from "../../utils/date-utils";
-import EditOnGithub from "@components/misc/EditOnGithub.astro";
 export async function getStaticPaths() {
 	const blogEntries = await getSortedPosts();
 	return blogEntries.map((entry) => ({
@@ -212,12 +211,14 @@ const jsonLd = {
                                 class="mb-6 rounded-xl license-container onload-animation"
                             />
                         )}
-                        <EditOnGithub path={entry.id} />
                     </>
                 )
             }
         </div>
     </div>
+
+    <!-- 评论 -->
+    <Comment post={entry} />
 
     {siteConfig.showLastModified && (
         <>
@@ -359,7 +360,4 @@ const jsonLd = {
             }
         </a>
     </div>
-    
-    <!-- 评论 -->
-    <Comment post={entry} />
 </MainGridLayout>

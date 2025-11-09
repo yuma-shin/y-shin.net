@@ -136,9 +136,17 @@ html {
         @apply rounded-[var(--radius-large)] overflow-hidden bg-[var(--card-bg-transparent)] backdrop-blur-sm transition-colors duration-150;
     }
     
-    /* 全屏壁纸模式下的半透明效果 */
+    /* 全屏壁纸模式下的半透明效果 - 使用!important确保优先级 */
     .wallpaper-transparent .card-base {
-        @apply bg-[var(--card-bg-transparent)] backdrop-blur-sm;
+        background: var(--card-bg-transparent) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+    }
+    
+    body.wallpaper-transparent .card-base {
+        background: var(--card-bg-transparent) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
     }
     
     .wallpaper-transparent .float-panel {

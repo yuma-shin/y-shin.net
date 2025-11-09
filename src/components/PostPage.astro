@@ -36,39 +36,33 @@ const interval = 50;
 <script>
   // 动态布局切换脚本
   function initLayout() {
+    // 延迟执行以确保DOM已完全加载
     setTimeout(() => {
-      // 記事一覧ページかどうかをチェック
-      const isListPage = document.querySelector('div[data-default-layout]') !== null;
-      if (!isListPage) {
-        // 記事一覧ページでない場合は初期化不要
-        return;
-      }
-
-      // コンテナを探す
       const postListContainer = document.getElementById("post-list-container");
       if (!postListContainer) {
-        // 記事一覧ページなのにコンテナが見つからない場合はエラー
-        console.error("post-list-container not found on list page");
+        console.warn("post-list-container not found, retrying...");
+        // 如果找不到容器，延迟重试
+        setTimeout(initLayout, 100);
         return;
       }
 
-      // ローカルストレージから設定を読み込む
+      // 从localStorage读取用户偏好
       const savedLayout = localStorage.getItem("postListLayout");
       const defaultLayout = postListContainer.getAttribute("data-default-layout") || "list";
       const currentLayout = savedLayout || defaultLayout;
 
       console.log("Initializing layout:", { savedLayout, defaultLayout, currentLayout });
 
-      // デスクトップの場合のみJavaScriptで処理
+      // 移动端由CSS处理，桌面端才需要JavaScript初始化
       const isDesktop = window.innerWidth >= 769;
       if (isDesktop) {
         updatePostListLayout(currentLayout);
       } else {
-        // モバイルの場合はCSSで処理済み
+        // 移动端：只添加初始化标记，不更改布局（CSS已处理）
         postListContainer.classList.add("js-initialized");
       }
       
-      // 初期化完了イベントを発行
+      // 发布布局初始化事件
       publishLayoutInit();
     }, 50);
   }

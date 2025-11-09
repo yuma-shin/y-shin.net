@@ -1,5 +1,4 @@
 import type { DARK_MODE, LIGHT_MODE, WALLPAPER_BANNER, WALLPAPER_FULLSCREEN, WALLPAPER_NONE } from "../constants/constants";
-import type Giscus from 'giscus'
 
 export type SiteConfig = {
 	title: string;
@@ -71,8 +70,13 @@ export type SiteConfig = {
 		useNewStyle?: boolean; // 是否使用新样式（悬停高亮样式）还是旧样式（外框常亮样式）
 	};
 
+	// 壁纸模式配置
+	wallpaperMode: {
+		defaultMode: "banner" | "fullscreen" | "none"; // 默认壁纸模式：banner=顶部横幅，fullscreen=全屏壁纸，none=无壁纸
+		showModeSwitchOnMobile?: "off" | "mobile" | "desktop" | "both"; // 整体布局方案切换按钮显示设置：off=隐藏，mobile=仅移动端，desktop=仅桌面端，both=全部显示
+	};
+
 	banner: {
-		enable: boolean;
 		src:
 			| string
 			| string[]
@@ -113,7 +117,6 @@ export type SiteConfig = {
 		navbar?: {
 			transparentMode?: "semi" | "full" | "semifull"; // 导航栏透明模式
 		};
-		showModeSwitchOnMobile?: "off" | "mobile" | "desktop" | "both"; // 整体布局方案切换按钮显示设置：off=隐藏，mobile=仅移动端，desktop=仅桌面端，both=全部显示
 	};
 	toc: {
 		enable: boolean;
@@ -137,12 +140,10 @@ export enum LinkPreset {
 	Friends = 3,
 	Anime = 4,
 	Diary = 5,
-	Uses = 6,
+
 	Projects = 7,
 	Skills = 8,
 	Timeline = 9,
-	Awards = 10,
-	Work = 11,
 }
 
 export type NavBarLink = {
@@ -182,7 +183,6 @@ export type LicenseConfig = {
 export type CommentConfig = {
 	enable: boolean; // 是否启用评论功能
 	twikoo?: TwikooConfig;
-	giscus?: GiscusConfig;
 };
 
 type TwikooConfig = {
@@ -248,7 +248,6 @@ export type WidgetComponentType =
 	| "toc"
 	| "music-player"
 	| "pio" // 添加 pio 组件类型
-	| "certificates"
 	| "custom";
 
 export type WidgetComponentConfig = {
@@ -317,7 +316,6 @@ export type SakuraConfig = {
 };
 
 export type FullscreenWallpaperConfig = {
-	enable: boolean; // 是否启用全屏壁纸功能
 	src:
 		| string
 		| string[]
@@ -360,20 +358,3 @@ export type PioConfig = {
 		}>;
 	};
 };
-
-type GiscusConfig = {
-  repo: Giscus.Repo;
-  host?: string;
-  repoId: string;
-  category: string;
-  categoryId: string;
-  mapping?: Giscus.Mapping;
-  term?: string;
-  strict?: Giscus.BooleanString;
-  reactionsEnabled?: Giscus.BooleanString;
-  emitMetadata?: Giscus.BooleanString;
-  inputPosition?: Giscus.InputPosition;
-  theme?: Giscus.Theme;
-  lang?: Giscus.AvailableLanguage;
-  loading?: Giscus.Loading;
-}
