@@ -129,10 +129,10 @@ onMount(() => {
 
 {#if mounted && siteConfig.postListLayout.allowSwitch && !isSmallScreen}
   <button 
-    aria-label="Switch Article List Layout" 
+    aria-label="切换文章列表布局" 
     class="btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90 flex items-center justify-center" 
     on:click={switchLayout}
-    title={currentLayout === 'list' ? 'Grid Mode' : 'List Mode'}
+    title={currentLayout === 'list' ? '切换到网格模式' : '切换到列表模式'}
   >
       {#if currentLayout === 'list'}
         <!-- 列表图标 -->

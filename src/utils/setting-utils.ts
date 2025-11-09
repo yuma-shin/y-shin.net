@@ -4,7 +4,7 @@ import {
 	LIGHT_MODE,
 	WALLPAPER_BANNER,
 } from "@constants/constants";
-import { expressiveCodeConfig } from "@/config";
+import { expressiveCodeConfig, siteConfig } from "@/config";
 import type { LIGHT_DARK_MODE, WALLPAPER_MODE } from "@/types/config";
 
 export function getDefaultHue(): number {
@@ -110,7 +110,7 @@ export function getStoredTheme(): LIGHT_DARK_MODE {
 }
 
 export function getStoredWallpaperMode(): WALLPAPER_MODE {
-	return (localStorage.getItem("wallpaperMode") as WALLPAPER_MODE) || WALLPAPER_BANNER;
+	return (localStorage.getItem("wallpaperMode") as WALLPAPER_MODE) || siteConfig.wallpaperMode.defaultMode;
 }
 
 export function setWallpaperMode(mode: WALLPAPER_MODE): void {

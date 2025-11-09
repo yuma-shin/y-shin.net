@@ -1,54 +1,17 @@
 ---
-import path from "node:path";
-import { getImage } from "astro:assets";
-import { parseHTML } from "linkedom";
 // 只加载基础的等宽字体，减少加载时间
 import "@fontsource-variable/jetbrains-mono";
 
 interface Props {
 	class: string;
 }
-// const className = Astro.props.class;
-const { class: className, basePath = "/" } = Astro.props;
-
-const html = await Astro.slots.render("default");
-const { document } = parseHTML(html);
-await (async () => {
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const modules: Record<string, any> = import.meta.glob("../../**/*.{jpeg,jpg,png,tiff,webp,gif,svg,avif}");
-  const re = /^(?![a-zA-Z]+:\/|\/)/;
-  for (const img of document.querySelectorAll("img")) {
-    const src = img.getAttribute("src");
-    if (!src || !re.test(src)) continue;
-    const normalizedPath = path.normalize(path.join("../../", basePath, src)).replaceAll("\\", "/");
-    const moduleLoader = modules[normalizedPath];
-    if (!moduleLoader) continue;
-    try {
-      const module = await moduleLoader();
-      const result = await getImage({ src: module.default });
-      img.setAttribute("src", result.src);
-    } catch (error) {
-      console.warn(`Skipping image "${normalizedPath}" due to processing error:`, error);
-    }
-  }
-})();
+const className = Astro.props.class;
 ---
 <div data-pagefind-body class={`prose dark:prose-invert prose-base !max-w-none custom-md ${className}`}>
     <!--<div class="prose dark:prose-invert max-w-none custom-md">-->
     <!--<div class="max-w-none custom-md">-->
-    <!--<slot/>-->
-    <Fragment set:html={document.toString()} />
+    <slot/>
 </div>
-
-<!-- Link Card -->
-<script>
-  let linkCards = Array.from(document.querySelectorAll(".rlc-container")) as HTMLElement[];
-  for (let linkCard of linkCards) {
-    linkCard.classList.add("no-styling");
-    linkCard.style.textDecoration = "none";
-    linkCard.setAttribute("target", "_blank");
-  }
-</script>
 
 <script>
 document.addEventListener("click", function (e: MouseEvent) {
