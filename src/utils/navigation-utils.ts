@@ -1,12 +1,12 @@
 /**
- * 导航工具函数
- * 提供统一的页面导航功能，支持 Swup 无刷新跳转
+ * ナビゲーションユーティリティ関数
+ * Swup を用いた高速（無刷新）ナビゲーションを含むページ遷移機能を提供する
  */
 
 /**
- * 导航到指定页面
- * @param url 目标页面URL
- * @param options 导航选项
+ * 指定ページに遷移する
+ * @param url 目的地のページ URL
+ * @param options ナビゲーションオプション
  */
 export function navigateToPage(
 	url: string,
@@ -15,13 +15,13 @@ export function navigateToPage(
 		force?: boolean;
 	},
 ): void {
-	// 检查 URL 是否有效
+	// URL が有効かをチェック
 	if (!url || typeof url !== "string") {
 		console.warn("navigateToPage: Invalid URL provided");
 		return;
 	}
 
-	// 如果是外部链接，直接跳转
+	// 外部リンクの場合は直接新しいタブで開く
 	if (
 		url.startsWith("http://") ||
 		url.startsWith("https://") ||
@@ -31,7 +31,7 @@ export function navigateToPage(
 		return;
 	}
 
-	// 如果是锚点链接，滚动到对应位置
+	// アンカーリンクの場合は対応する要素までスムーズスクロールする
 	if (url.startsWith("#")) {
 		const element = document.getElementById(url.slice(1));
 		if (element) {
@@ -40,10 +40,10 @@ export function navigateToPage(
 		return;
 	}
 
-	// 检查 Swup 是否可用
+	// Swup が利用可能かをチェック
 	if (typeof window !== "undefined" && (window as any).swup) {
 		try {
-			// 使用 Swup 进行无刷新跳转
+			// Swup を使ってフラッシュなしで遷移する
 			if (options?.replace) {
 				(window as any).swup.navigate(url, { history: false });
 			} else {
@@ -51,18 +51,18 @@ export function navigateToPage(
 			}
 		} catch (error) {
 			console.error("Swup navigation failed:", error);
-			// 降级到普通跳转
+				// 通常のページ遷移へフォールバックする
 			fallbackNavigation(url, options);
 		}
 	} else {
-		// Swup 不可用时的降级处理
+		// Swup が利用できない場合のフォールバック処理
 		fallbackNavigation(url, options);
 	}
 }
 
 /**
- * 降级导航函数
- * 当 Swup 不可用时使用普通的页面跳转
+ * フォールバックナビゲーション関数
+ * Swup が利用できない場合に通常のページ遷移を行う
  */
 function fallbackNavigation(
 	url: string,
@@ -79,15 +79,15 @@ function fallbackNavigation(
 }
 
 /**
- * 检查 Swup 是否已准备就绪
+ * Swup が準備完了かを判定する
  */
 export function isSwupReady(): boolean {
 	return typeof window !== "undefined" && !!(window as any).swup;
 }
 
 /**
- * 等待 Swup 准备就绪
- * @param timeout 超时时间（毫秒）
+ * Swup の準備完了を待機する
+ * @param timeout タイムアウト時間（ミリ秒）
  */
 export function waitForSwup(timeout: number = 5000): Promise<boolean> {
 	return new Promise((resolve) => {
@@ -106,7 +106,7 @@ export function waitForSwup(timeout: number = 5000): Promise<boolean> {
 			}
 		};
 
-		// 监听 Swup 启用事件
+		// Swup の有効化イベントを監視
 		document.addEventListener("swup:enable", checkSwup);
 
 		// 设置超时
@@ -118,15 +118,15 @@ export function waitForSwup(timeout: number = 5000): Promise<boolean> {
 }
 
 /**
- * 预加载页面
- * @param url 要预加载的页面URL
+ * ページをプリロードする
+ * @param url プリロードするページの URL
  */
 export function preloadPage(url: string): void {
 	if (!url || typeof url !== "string") {
 		return;
 	}
 
-	// 如果 Swup 可用，使用其预加载功能
+	// Swup が利用可能ならそのプリロード機能を使う
 	if (isSwupReady() && (window as any).swup.preload) {
 		try {
 			(window as any).swup.preload(url);
@@ -137,14 +137,14 @@ export function preloadPage(url: string): void {
 }
 
 /**
- * 获取当前页面路径
+ * 現在のページパスを取得する
  */
 export function getCurrentPath(): string {
 	return typeof window !== "undefined" ? window.location.pathname : "";
 }
 
 /**
- * 检查是否为首页
+ * ルート（ホーム）かどうかを判定する
  */
 export function isHomePage(): boolean {
 	const path = getCurrentPath();
@@ -152,7 +152,7 @@ export function isHomePage(): boolean {
 }
 
 /**
- * 检查是否为文章页面
+ * 記事ページかどうかを判定する
  */
 export function isPostPage(): boolean {
 	const path = getCurrentPath();
@@ -160,7 +160,7 @@ export function isPostPage(): boolean {
 }
 
 /**
- * 检查两个路径是否相等
+ * 2 つのパスが等しいかを判定する
  */
 export function pathsEqual(path1: string, path2: string): boolean {
 	// 标准化路径（移除末尾斜杠）

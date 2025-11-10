@@ -6,7 +6,7 @@ import type {
 } from "../types/config";
 
 /**
- * 组件映射表 - 将组件类型映射到实际的组件路径
+ * コンポーネントマッピング表 - コンポーネントタイプを実際のコンポーネントパスにマッピング
  */
 export const WIDGET_COMPONENT_MAP = {
 	profile: "../components/widget/Profile.astro",
@@ -15,13 +15,13 @@ export const WIDGET_COMPONENT_MAP = {
 	tags: "../components/widget/Tags.astro",
 	toc: "../components/widget/TOC.astro",
 	"music-player": "../components/widget/MusicPlayer.svelte",
-	//pio: "../components/widget/Pio.astro", // 添加 Pio 组件映射
-	custom: null, // 自定义组件需要在配置中指定路径
+	//pio: "../components/widget/Pio.astro", // Pio コンポーネントのマッピングを追加
+	custom: null, // カスタムコンポーネントは設定でパスを指定する必要がある
 } as const;
 
 /**
- * 组件管理器类
- * 负责管理侧边栏组件的动态加载、排序和渲染
+ * コンポーネントマネージャークラス
+ * サイドバーコンポーネントの動的ロード、ソート、レンダリングを管理
  */
 export class WidgetManager {
 	private config: SidebarLayoutConfig;
@@ -33,14 +33,14 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 获取配置
+	 * 設定を取得
 	 */
 	getConfig(): SidebarLayoutConfig {
 		return this.config;
 	}
 
 	/**
-	 * 获取启用的组件列表
+	 * 有効化されたコンポーネントリストを取得
 	 */
 	private getEnabledComponents(): WidgetComponentConfig[] {
 		return this.config.components
@@ -49,8 +49,8 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 根据位置获取组件列表
-	 * @param position 组件位置：'top' | 'sticky'
+	 * 位置に基づいてコンポーネントリストを取得
+	 * @param position コンポーネント位置：'top' | 'sticky'
 	 */
 	getComponentsByPosition(position: "top" | "sticky"): WidgetComponentConfig[] {
 		return this.enabledComponents.filter(
@@ -59,9 +59,9 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 获取组件的动画延迟时间
-	 * @param component 组件配置
-	 * @param index 组件在列表中的索引
+	 * コンポーネントのアニメーション遅延時間を取得
+	 * @param component コンポーネント設定
+	 * @param index リスト内のコンポーネントのインデックス
 	 */
 	getAnimationDelay(component: WidgetComponentConfig, index: number): number {
 		if (component.animationDelay !== undefined) {
@@ -79,19 +79,19 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 获取组件的CSS类名
-	 * @param component 组件配置
-	 * @param index 组件在列表中的索引
+	 * コンポーネントのCSSクラス名を取得
+	 * @param component コンポーネント設定
+	 * @param index リスト内のコンポーネントのインデックス
 	 */
 	getComponentClass(component: WidgetComponentConfig, _index: number): string {
 		const classes: string[] = [];
 
-		// 添加基础类名
+		// 基本クラス名を追加
 		if (component.class) {
 			classes.push(component.class);
 		}
 
-		// 添加响应式隐藏类名
+		// レスポンシブ用の非表示クラス名を追加
 		if (component.responsive?.hidden) {
 			component.responsive.hidden.forEach((device) => {
 				switch (device) {
@@ -112,19 +112,19 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 获取组件的内联样式
-	 * @param component 组件配置
-	 * @param index 组件在列表中的索引
+	 * コンポーネントのインラインスタイルを取得
+	 * @param component コンポーネント設定
+	 * @param index コンポーネントリスト内のインデックス
 	 */
 	getComponentStyle(component: WidgetComponentConfig, index: number): string {
 		const styles: string[] = [];
 
-		// 添加自定义样式
+		// カスタムスタイルを追加
 		if (component.style) {
 			styles.push(component.style);
 		}
 
-		// 添加动画延迟样式
+		// アニメーション遅延スタイルを追加
 		const animationDelay = this.getAnimationDelay(component, index);
 		if (animationDelay > 0) {
 			styles.push(`animation-delay: ${animationDelay}ms`);
@@ -134,9 +134,9 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 检查组件是否应该折叠
-	 * @param component 组件配置
-	 * @param itemCount 组件内容项数量
+	 * コンポーネントを折りたたむべきかを確認
+	 * @param component コンポーネント設定
+	 * @param itemCount コンポーネント内のアイテム数
 	 */
 	isCollapsed(component: WidgetComponentConfig, itemCount: number): boolean {
 		if (!component.responsive?.collapseThreshold) {
@@ -146,8 +146,8 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 获取组件的路径
-	 * @param componentType 组件类型
+	 * コンポーネントのパスを取得
+	 * @param componentType コンポーネントタイプ
 	 */
 	getComponentPath(componentType: WidgetComponentType): string | null {
 		return WIDGET_COMPONENT_MAP[componentType];
@@ -167,15 +167,15 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 获取设备断点配置
+	 * デバイスのブレークポイント設定を取得
 	 */
 	getBreakpoints() {
 		return this.config.responsive.breakpoints;
 	}
 
 	/**
-	 * 更新组件配置
-	 * @param newConfig 新的配置
+	 * 設定を更新
+	 * @param newConfig 新しい設定
 	 */
 	updateConfig(newConfig: Partial<SidebarLayoutConfig>): void {
 		this.config = { ...this.config, ...newConfig };
@@ -183,8 +183,8 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 添加新组件
-	 * @param component 组件配置
+	 * コンポーネントを追加
+	 * @param component コンポーネント設定
 	 */
 	addComponent(component: WidgetComponentConfig): void {
 		this.config.components.push(component);
@@ -192,8 +192,8 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 移除组件
-	 * @param componentType 组件类型
+	 * コンポーネントを削除
+	 * @param componentType コンポーネントタイプ
 	 */
 	removeComponent(componentType: WidgetComponentType): void {
 		this.config.components = this.config.components.filter(
@@ -203,9 +203,9 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 启用/禁用组件
-	 * @param componentType 组件类型
-	 * @param enable 是否启用
+	 * コンポーネントの有効化/無効化
+	 * @param componentType コンポーネントタイプ
+	 * @param enable 有効にするかどうか
 	 */
 	toggleComponent(componentType: WidgetComponentType, enable: boolean): void {
 		const component = this.config.components.find(
@@ -218,9 +218,9 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 重新排序组件
-	 * @param componentType 组件类型
-	 * @param newOrder 新的排序值
+	 * コンポーネントの並び順を変更
+	 * @param componentType コンポーネントタイプ
+	 * @param newOrder 新しい順序値
 	 */
 	reorderComponent(componentType: WidgetComponentType, newOrder: number): void {
 		const component = this.config.components.find(
@@ -233,23 +233,23 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 检查组件是否应该在侧边栏中渲染
-	 * @param componentType 组件类型
+	 * コンポーネントをサイドバーに描画すべきかを確認
+	 * @param componentType コンポーネントタイプ
 	 */
 	isSidebarComponent(componentType: WidgetComponentType): boolean {
-		// Pio 组件是全局组件，不在侧边栏中渲染
+		// Pioコンポーネントはグローバルコンポーネントのため、サイドバーには描画しない
 		return componentType !== "pio";
 	}
 }
 
 /**
- * 默认组件管理器实例
+ * デフォルトのコンポーネントマネージャーインスタンス
  */
 export const widgetManager = new WidgetManager();
 
 /**
- * 工具函数：根据组件类型获取组件配置
- * @param componentType 组件类型
+ * ユーティリティ関数：コンポーネントタイプに基づいて設定を取得
+ * @param componentType コンポーネントタイプ
  */
 export function getComponentConfig(
 	componentType: WidgetComponentType,
@@ -260,8 +260,8 @@ export function getComponentConfig(
 }
 
 /**
- * 工具函数：检查组件是否启用
- * @param componentType 组件类型
+ * ユーティリティ関数：コンポーネントが有効かどうかを確認
+ * @param componentType コンポーネントタイプ
  */
 export function isComponentEnabled(
 	componentType: WidgetComponentType,
@@ -271,7 +271,7 @@ export function isComponentEnabled(
 }
 
 /**
- * 工具函数：获取所有启用的组件类型
+ * ユーティリティ関数：有効化されている全コンポーネントタイプを取得
  */
 export function getEnabledComponentTypes(): WidgetComponentType[] {
 	const enabledComponents = widgetManager

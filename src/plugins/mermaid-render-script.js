@@ -1,19 +1,19 @@
 (() => {
-	// 单例模式：检查是否已经初始化过
+	// シングルトンパターン：既に初期化済みかチェック
 	if (window.mermaidInitialized) {
 		return;
 	}
 
 	window.mermaidInitialized = true;
 
-	// 记录当前主题状态，避免不必要的重新渲染
+	// 現在のテーマ状態を記録し、不要な再レンダリングを防止
 	let currentTheme = null;
-	let isRendering = false; // 防止并发渲染
+	let isRendering = false; // 並行レンダリングを防止
 	let retryCount = 0;
 	const MAX_RETRIES = 3;
 	const RETRY_DELAY = 1000; // 1秒
 
-	// 检查主题是否真的发生了变化
+	// テーマが実際に変更されたかチェック
 	function hasThemeChanged() {
 		const isDark = document.documentElement.classList.contains("dark");
 		const newTheme = isDark ? "dark" : "default";
@@ -25,7 +25,7 @@
 		return false;
 	}
 
-	// 等待 Mermaid 库加载完成
+	// Mermaidライブラリの読み込み完了を待機
 	function waitForMermaid(timeout = 10000) {
 		return new Promise((resolve, reject) => {
 			const startTime = Date.now();
@@ -44,7 +44,7 @@
 		});
 	}
 
-	// 设置 MutationObserver 监听 html 元素的 class 属性变化
+	// MutationObserverを設定してhtml要素のclass属性の変更を監視
 	function setupMutationObserver() {
 		const observer = new MutationObserver((mutations) => {
 			mutations.forEach((mutation) => {
@@ -52,7 +52,7 @@
 					mutation.type === "attributes" &&
 					mutation.attributeName === "class"
 				) {
-					// 检查是否是 dark 类的变化
+					// darkクラスの変更をチェック
 					const target = mutation.target;
 					const wasDark = mutation.oldValue
 						? mutation.oldValue.includes("dark")
@@ -61,7 +61,7 @@
 
 					if (wasDark !== isDark) {
 						if (hasThemeChanged()) {
-							// 延迟渲染，避免主题切换时的闪烁
+							// テーマ切り替え時のちらつきを防ぐため遅延レンダリング
 							setTimeout(() => renderMermaidDiagrams(), 150);
 						}
 					}
@@ -69,7 +69,7 @@
 			});
 		});
 
-		// 开始观察 html 元素的 class 属性变化
+		// html要素のclass属性変更の監視を開始
 		observer.observe(document.documentElement, {
 			attributes: true,
 			attributeFilter: ["class"],
@@ -77,19 +77,19 @@
 		});
 	}
 
-	// 设置其他事件监听器
+	// その他のイベントリスナーを設定
 	function setupEventListeners() {
-		// 监听页面切换
+		// ページ遷移を監視
 		document.addEventListener("astro:page-load", () => {
-			// 重新初始化主题状态
+			// テーマ状態を再初期化
 			currentTheme = null;
-			retryCount = 0; // 重置重试计数
+			retryCount = 0; // リトライカウントをリセット
 			if (hasThemeChanged()) {
 				setTimeout(() => renderMermaidDiagrams(), 100);
 			}
 		});
 
-		// 监听页面可见性变化，页面重新可见时重新渲染
+		// ページの可視性変更を監視し、再表示時に再レンダリング
 		document.addEventListener("visibilitychange", () => {
 			if (!document.hidden) {
 				setTimeout(() => renderMermaidDiagrams(), 200);
@@ -101,7 +101,7 @@
 		try {
 			await waitForMermaid();
 
-			// 初始化 Mermaid 配置
+			// Mermaid設定を初期化
 			window.mermaid.initialize({
 				startOnLoad: false,
 				theme: "default",

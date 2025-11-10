@@ -3,14 +3,14 @@
   const cacheTTL = 3600_000; // 1h
 
   /**
-   * 获取网站统计数据
-   * @param {string} baseUrl - Umami Cloud API基础URL
-   * @param {string} apiKey - API密钥
-   * @param {string} websiteId - 网站ID
-   * @returns {Promise<object>} 网站统计数据
+   * ウェブサイト統計データの取得
+   * @param {string} baseUrl - Umami Cloud APIのベースURL
+   * @param {string} apiKey - APIキー
+   * @param {string} websiteId - ウェブサイトID
+   * @returns {Promise<object>} ウェブサイト統計データ
    */
   async function fetchWebsiteStats(baseUrl, apiKey, websiteId) {
-    // 检查缓存
+    // キャッシュを確認
     const cached = localStorage.getItem(cacheKey);
     if (cached) {
       try {
@@ -33,26 +33,26 @@
     });
     
     if (!res.ok) {
-      throw new Error('获取网站统计数据失败');
+      throw new Error('ウェブサイト統計データの取得に失敗しました');
     }
     
     const stats = await res.json();
     
-    // 缓存结果
+    // 結果をキャッシュ
     localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), value: stats }));
     
     return stats;
   }
 
   /**
-   * 获取特定页面的统计数据
-   * @param {string} baseUrl - Umami Cloud API基础URL
-   * @param {string} apiKey - API密钥
-   * @param {string} websiteId - 网站ID
-   * @param {string} urlPath - 页面路径
-   * @param {number} startAt - 开始时间戳
-   * @param {number} endAt - 结束时间戳
-   * @returns {Promise<object>} 页面统计数据
+   * 特定ページの統計データを取得
+   * @param {string} baseUrl - Umami Cloud APIのベースURL
+   * @param {string} apiKey - APIキー
+   * @param {string} websiteId - ウェブサイトID
+   * @param {string} urlPath - ページパス
+   * @param {number} startAt - 開始タイムスタンプ
+   * @param {number} endAt - 終了タイムスタンプ
+   * @returns {Promise<object>} ページ統計データ
    */
   async function fetchPageStats(baseUrl, apiKey, websiteId, urlPath, startAt = 0, endAt = Date.now()) {
     const statsUrl = `${baseUrl}/v1/websites/${websiteId}/stats?startAt=${startAt}&endAt=${endAt}&url=${encodeURIComponent(urlPath)}`;
@@ -64,36 +64,36 @@
     });
     
     if (!res.ok) {
-      throw new Error('获取页面统计数据失败');
+      throw new Error('ページ統計データの取得に失敗しました');
     }
     
     return await res.json();
   }
 
   /**
-   * 获取 Umami 网站统计数据
-   * @param {string} baseUrl - Umami Cloud API基础URL
-   * @param {string} apiKey - API密钥
-   * @param {string} websiteId - 网站ID
-   * @returns {Promise<object>} 网站统计数据
+   * Umami ウェブサイト統計データを取得
+   * @param {string} baseUrl - Umami Cloud APIのベースURL
+   * @param {string} apiKey - APIキー
+   * @param {string} websiteId - ウェブサイトID
+   * @returns {Promise<object>} ウェブサイト統計データ
    */
   global.getUmamiWebsiteStats = async function (baseUrl, apiKey, websiteId) {
     try {
       return await fetchWebsiteStats(baseUrl, apiKey, websiteId);
     } catch (err) {
-      throw new Error(`获取Umami统计数据失败: ${err.message}`);
+      throw new Error(`Umami統計データの取得に失敗しました: ${err.message}`);
     }
   };
 
   /**
-   * 获取特定页面的 Umami 统计数据
-   * @param {string} baseUrl - Umami Cloud API基础URL
-   * @param {string} apiKey - API密钥
-   * @param {string} websiteId - 网站ID
-   * @param {string} urlPath - 页面路径
-   * @param {number} startAt - 开始时间戳（可选）
-   * @param {number} endAt - 结束时间戳（可选）
-   * @returns {Promise<object>} 页面统计数据
+   * 特定ページのUmami統計データを取得
+   * @param {string} baseUrl - Umami Cloud APIのベースURL
+   * @param {string} apiKey - APIキー
+   * @param {string} websiteId - ウェブサイトID
+   * @param {string} urlPath - ページパス
+   * @param {number} startAt - 開始タイムスタンプ（オプション）
+   * @param {number} endAt - 終了タイムスタンプ（オプション）
+   * @returns {Promise<object>} ページ統計データ
    */
   global.getUmamiPageStats = async function (baseUrl, apiKey, websiteId, urlPath, startAt, endAt) {
     try {

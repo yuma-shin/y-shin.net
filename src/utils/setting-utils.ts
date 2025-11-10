@@ -28,12 +28,12 @@ export function setHue(hue: number): void {
 }
 
 export function applyThemeToDocument(theme: LIGHT_DARK_MODE) {
-	// 获取当前主题状态的完整信息
+	// 現在のテーマ状態の完全な情報を取得
 	const currentIsDark = document.documentElement.classList.contains("dark");
 	const currentTheme = document.documentElement.getAttribute("data-theme");
 
-	// 计算目标主题状态
-	let targetIsDark: boolean = false; // 初始化默认值
+	// 目標テーマ状態を計算
+	let targetIsDark: boolean = false; // デフォルト値を初期化
 	switch (theme) {
 		case LIGHT_MODE:
 			targetIsDark = false;
@@ -42,31 +42,31 @@ export function applyThemeToDocument(theme: LIGHT_DARK_MODE) {
 			targetIsDark = true;
 			break;
 		default:
-			// 处理默认情况，使用当前主题状态
+			// デフォルトの場合、現在のテーマ状態を使用
 			targetIsDark = currentIsDark;
 			break;
 	}
 
-	// 检测是否真的需要主题切换：
-	// 1. dark类状态是否改变
-	// 2. expressiveCode主题是否需要更新
+	// テーマ切り替えが本当に必要かを検出：
+	// 1. darkクラスの状態が変更されるか
+	// 2. expressiveCodeのテーマを更新する必要があるか
 	const needsThemeChange = currentIsDark !== targetIsDark;
 	const expectedTheme = targetIsDark ? "github-dark" : "github-light";
 	const needsCodeThemeUpdate = currentTheme !== expectedTheme;
 
-	// 如果既不需要主题切换也不需要代码主题更新，直接返回
+	// テーマ切り替えもコードテーマの更新も必要ない場合は直ちに戻る
 	if (!needsThemeChange && !needsCodeThemeUpdate) {
 		return;
 	}
 
-	// 只在需要主题切换时添加过渡保护
+	// テーマ切り替えが必要な場合のみ遷移保護を追加
 	if (needsThemeChange) {
 		document.documentElement.classList.add("is-theme-transitioning");
 	}
 
-	// 使用 requestAnimationFrame 确保在下一帧执行，避免闪屏
+	// requestAnimationFrame を使用して次のフレームでの実行を保証し、ちらつきを防止
 	requestAnimationFrame(() => {
-		// 应用主题变化
+		// テーマの変更を適用
 		if (needsThemeChange) {
 			if (targetIsDark) {
 				document.documentElement.classList.add("dark");
@@ -75,24 +75,24 @@ export function applyThemeToDocument(theme: LIGHT_DARK_MODE) {
 			}
 		}
 
-		// Set the theme for Expressive Code based on current mode
+		// 現在のモードに基づいてExpressive Codeのテーマを設定
 		const expressiveTheme = targetIsDark ? "github-dark" : "github-light";
 		document.documentElement.setAttribute(
 			"data-theme",
 			expressiveTheme,
 		);
 
-		// 强制重新渲染代码块 - 解决从首页进入文章页面时的渲染问题
+		// コードブロックの強制再レンダリング - ホームからブログ記事へ移動時のレンダリング問題を解決
 		if (needsCodeThemeUpdate) {
-			// 触发 expressice code 重新渲染
+			// Expressive Codeの再レンダリングをトリガー
 			setTimeout(() => {
 				window.dispatchEvent(new CustomEvent('theme-change'));
 			}, 0);
 		}
 
-		// 在下一帧快速移除保护类，使用微任务确保DOM更新完成
+		// 次フレームで保護クラスを素早く除去する（マイクロタスクで DOM 更新完了を保証）
 		if (needsThemeChange) {
-			// 使用 requestAnimationFrame 确保在下一帧移除过渡保护类
+			// requestAnimationFrame を使って次のフレームで遷移保護クラスを除去する
 			requestAnimationFrame(() => {
 				document.documentElement.classList.remove("is-theme-transitioning");
 			});
@@ -115,6 +115,6 @@ export function getStoredWallpaperMode(): WALLPAPER_MODE {
 
 export function setWallpaperMode(mode: WALLPAPER_MODE): void {
 	localStorage.setItem("wallpaperMode", mode);
-	// 触发自定义事件通知其他组件壁纸模式已改变
+	// カスタムイベントを発火して他のコンポーネントに壁紙モードの変更を通知
 	window.dispatchEvent(new CustomEvent('wallpaper-mode-change', { detail: { mode } }));
 }

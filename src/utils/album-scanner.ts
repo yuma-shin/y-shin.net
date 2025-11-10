@@ -6,19 +6,19 @@ export async function scanAlbums(): Promise<AlbumGroup[]> {
 	const albumsDir = path.join(process.cwd(), "public/images/albums");
 	const albums: AlbumGroup[] = [];
 
-	// 检查目录是否存在
+	// ディレクトリが存在するか確認
 	if (!fs.existsSync(albumsDir)) {
 		console.warn("相册目录不存在:", albumsDir);
 		return [];
 	}
 
-	// 获取所有子文件夹
+	// 全てのサブフォルダを取得
 	const albumFolders = fs
 		.readdirSync(albumsDir, { withFileTypes: true })
 		.filter((dirent) => dirent.isDirectory())
 		.map((dirent) => dirent.name);
 
-	// 处理每个相册文件夹
+	// 各アルバムフォルダを処理する
 	for (const folder of albumFolders) {
 		const albumPath = path.join(albumsDir, folder);
 		const album = await processAlbumFolder(albumPath, folder);
@@ -34,7 +34,7 @@ async function processAlbumFolder(
 	folderPath: string,
 	folderName: string,
 ): Promise<AlbumGroup | null> {
-	// 检查必要文件
+	// 必要なファイルがあるかをチェック
 	const infoPath = path.join(folderPath, "info.json");
 
 	if (!fs.existsSync(infoPath)) {
@@ -42,7 +42,7 @@ async function processAlbumFolder(
 		return null;
 	}
 
-	// 读取相册信息
+	// アルバム情報を読み込む
 	const infoContent = fs.readFileSync(infoPath, "utf-8");
 	let info: Record<string, any>;
 	try {
@@ -52,13 +52,13 @@ async function processAlbumFolder(
 		return null;
 	}
 
-	// 检查是否为外链模式
+	// 外部リンクモードかを確認
 	const isExternalMode = info.mode === "external";
 	let photos: Photo[] = [];
 	let cover: string;
 
 	if (isExternalMode) {
-		// 外链模式：从 info.json 中获取封面和照片
+	// 外部リンクモード：info.json からカバーと写真を取得する
 		if (!info.cover) {
 			console.warn(`相册 ${folderName} 外链模式缺少 cover 字段`);
 			return null;
@@ -67,7 +67,7 @@ async function processAlbumFolder(
 		cover = info.cover;
 		photos = processExternalPhotos(info.photos || [], folderName);
 	} else {
-		// 本地模式：检查本地文件
+	// ローカルモード：ローカルファイルをチェックする
 		const coverPath = path.join(folderPath, "cover.jpg");
 		if (!fs.existsSync(coverPath)) {
 			console.warn(`相册 ${folderName} 缺少 cover.jpg 文件`);
@@ -78,13 +78,13 @@ async function processAlbumFolder(
 		photos = scanPhotos(folderPath, folderName);
 	}
 
-	// 检查是否隐藏相册
+	// アルバムが非表示に設定されているかを確認
 	if (info.hidden === true) {
 		console.log(`相册 ${folderName} 已设置为隐藏，跳过显示`);
 		return null;
 	}
 
-	// 构建相册对象
+	// アルバムオブジェクトを構築
 	return {
 		id: folderName,
 		title: info.title || folderName,
@@ -103,7 +103,7 @@ function scanPhotos(folderPath: string, albumId: string): Photo[] {
 	const photos: Photo[] = [];
 	const files = fs.readdirSync(folderPath);
 
-	// 过滤出图片文件
+	// 画像ファイルをフィルタリング
 	const imageFiles = files.filter((file) => {
 		const ext = path.extname(file).toLowerCase();
 		return (
@@ -122,12 +122,12 @@ function scanPhotos(folderPath: string, albumId: string): Photo[] {
 		);
 	});
 
-	// 处理每张照片
+	// 各写真を処理する
 	imageFiles.forEach((file, index) => {
 		const filePath = path.join(folderPath, file);
 		const stats = fs.statSync(filePath);
 
-		// 解析文件名中的标签
+	// ファイル名からタグを解析
 		const { baseName, tags } = parseFileName(file);
 
 		photos.push({
