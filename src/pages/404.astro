@@ -8,27 +8,27 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
 <MainGridLayout title={i18n(I18nKey.notFound)} description={i18n(I18nKey.notFoundDescription)}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-96">
         <div class="card-base z-10 px-9 py-12 relative w-full flex flex-col items-center justify-center text-center">
-            <!-- 404 大号数字 -->
+            <!-- 404 大きな数字 -->
             <div class="text-8xl md:text-9xl font-bold text-[var(--primary)] opacity-20 mb-4">
                 {i18n(I18nKey.notFound)}
             </div>
             
-            <!-- 404 图标 -->
+            <!-- 404 アイコン -->
             <div class="mb-6">
                 <Icon name="material-symbols:error-outline" class="text-6xl text-[var(--primary)]" />
             </div>
             
-            <!-- 标题 -->
+            <!-- タイトル -->
             <h1 class="text-3xl md:text-4xl font-bold mb-4 text-90">
                 {i18n(I18nKey.notFoundTitle)}
             </h1>
             
-            <!-- 描述 -->
+            <!-- 説明文 -->
             <p class="text-lg text-75 mb-8 max-w-md">
                 {i18n(I18nKey.notFoundDescription)}
             </p>
             
-            <!-- 返回首页按钮 -->
+            <!-- ホームに戻るボタン -->
             <a 
                 href="/" 
                 class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--primary)] text-white rounded-[var(--radius-large)] hover:bg-[var(--primary-dark)] transition-colors duration-200 font-medium"
@@ -37,7 +37,7 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
                 {i18n(I18nKey.backToHome)}
             </a>
             
-            <!-- 装饰性元素 -->
+            <!-- 装飾的な要素 -->
             <div class="absolute top-4 left-4 opacity-10">
                 <Icon name="material-symbols:sentiment-sad" class="text-4xl text-[var(--primary)]" />
             </div>

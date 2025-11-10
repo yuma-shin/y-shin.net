@@ -175,7 +175,7 @@ const umamiScripts = umamiConfig.scripts || ""; // 获取Umami scripts配置
 			/>
 		))}
 
-		<!-- Set the theme before the page is rendered to avoid a flash -->
+		<!-- フラッシュを避けるためページレンダリング前にテーマを設定 -->
 		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue}}>
 			// Load the theme from local storage
 			const theme = localStorage.getItem('theme') || DEFAULT_THEME;
@@ -195,8 +195,8 @@ const umamiScripts = umamiConfig.scripts || ""; // 获取Umami scripts配置
 			const expressiveTheme = isDark ? "github-dark" : "github-light";
 			document.documentElement.setAttribute("data-theme", expressiveTheme);
 			
-			// 确保主题正确应用 - 解决代码块渲染问题
-			// 使用 requestAnimationFrame 确保在下一帧检查主题状态
+			// テーマが正しく適用されていることを確認 - コードブロックのレンダリング問題を解決
+			// requestAnimationFrame を使用して次のフレームでテーマ状態を確認
 			requestAnimationFrame(() => {
 				const currentTheme = document.documentElement.getAttribute('data-theme');
 				if (currentTheme !== expressiveTheme) {
@@ -216,7 +216,7 @@ const umamiScripts = umamiConfig.scripts || ""; // 获取Umami scripts配置
 		<style define:vars={{
 			configHue,
 			'page-width': `${PAGE_WIDTH}rem`,
-		}}></style>  <!-- defines global css variables. This will be applied to <html> <body> and some other elements idk why -->
+		}}></style>  <!-- グローバルCSS変数を定義（<html> <body>などの要素に適用される） -->
 
 
 
@@ -227,7 +227,7 @@ const umamiScripts = umamiConfig.scripts || ""; // 获取Umami scripts配置
 		<!-- Umami Analytics -->
 		{umamiEnabled && umamiScripts && <Fragment set:html={umamiScripts} />}
 
-		<!-- 引入全局处理脚本 -->
+		<!-- グローバル処理スクリプトを読み込み -->
 		<script src="/js/timeline-scroll-handler.js" defer></script>
 		<script src="/js/skills-progress-handler.js" defer></script>
 </head>
@@ -236,7 +236,7 @@ const umamiScripts = umamiConfig.scripts || ""; // 获取Umami scripts配置
 	>
 		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KRX3XGVH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		
-		<!-- 页面顶部渐变高光效果 - 只在full和semifull模式下显示 -->
+		<!-- ページ上部のグラデーションハイライト効果 - fullモードとsemifullモードでのみ表示 -->
 		{shouldShowTopHighlight && <div class="top-gradient-highlight"></div>}
 		<ConfigCarrier></ConfigCarrier>
 		<slot />
@@ -244,7 +244,7 @@ const umamiScripts = umamiConfig.scripts || ""; // 获取Umami scripts配置
 		<!-- Music Player -->
 		<MusicPlayer client:load />
 		
-		<!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
+		<!-- ページ遷移中にページの高さを増やしスクロールアニメーションの飛びを防止 -->
 		<div id="page-height-extend" class="hidden h-[300vh]"></div>
 
 		<!-- Sakura Effect -->
