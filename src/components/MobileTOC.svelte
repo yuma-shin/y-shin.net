@@ -275,7 +275,7 @@ if (typeof window !== "undefined") {
 		{#if tocItems.length === 0}
 			<div class="text-center py-8 text-black/50 dark:text-white/50">
 				<Icon icon="material-symbols:article-outline" class="text-2xl mb-2" />
-				<p>当前页面没有目录</p>
+				<p>現在のページには目次がありません</p>
 			</div>
 		{:else}
 			<div class="toc-content">
