@@ -1,6 +1,6 @@
 /**
- * 动画工具类 - 参考 yukina 主题的动画系统
- * 提供页面切换和组件动画的统一管理
+ * アニメーション管理クラス - yukina テーマのアニメーションシステムを参考
+ * ページ遷移とコンポーネントアニメーションの統合管理を提供する
  */
 
 export interface AnimationConfig {
@@ -23,7 +23,7 @@ export class AnimationManager {
 	}
 
 	/**
-	 * 初始化动画系统
+	 * アニメーションシステムの初期化
 	 */
 	init(): void {
 		this.setupSwupIntegration();
@@ -32,23 +32,23 @@ export class AnimationManager {
 	}
 
 	/**
-	 * 设置 Swup 集成
+	 * Swup 統合のセットアップ
 	 */
 	private setupSwupIntegration(): void {
 		if (typeof window !== "undefined" && (window as any).swup) {
 			const swup = (window as any).swup;
 
-			// 页面离开动画
+			// ページ離脱アニメーション
 			swup.hooks.on("animation:out:start", () => {
 				this.triggerPageLeaveAnimation();
 			});
 
-			// 页面进入动画
+			// ページ進入アニメーション
 			swup.hooks.on("animation:in:start", () => {
 				this.triggerPageEnterAnimation();
 			});
 
-			// 内容替换后重新初始化动画
+			// コンテンツ置換後のアニメーション再初期化
 			swup.hooks.on("content:replace", () => {
 				setTimeout(() => {
 					this.initializePageAnimations();
@@ -64,11 +64,11 @@ export class AnimationManager {
 		this.isAnimating = true;
 		document.documentElement.classList.add("is-leaving");
 
-		// 移动端优化：减少动画延迟，避免闪烁
+		// モバイル最適化：アニメーション遅延を短縮してちらつきを防ぐ
 		const isMobile = window.innerWidth <= 768;
 		const delay = isMobile ? 10 : 30;
 
-		// 添加离开动画类到主要元素
+		// 主要要素に離脱アニメーションクラスを追加
 		const mainElements = document.querySelectorAll(".transition-leaving");
 		mainElements.forEach((element, index) => {
 			setTimeout(() => {
@@ -84,7 +84,7 @@ export class AnimationManager {
 		document.documentElement.classList.remove("is-leaving");
 		document.documentElement.classList.add("is-entering");
 
-		// 移除离开动画类
+		// 離脱アニメーションクラスを除去
 		const elements = document.querySelectorAll(".animate-leave");
 		elements.forEach((element) => {
 			element.classList.remove("animate-leave");
@@ -101,14 +101,14 @@ export class AnimationManager {
 	 * 初始化页面动画
 	 */
 	private initializePageAnimations(): void {
-		// 重新应用加载动画
+		// ローディングアニメーションを再適用
 		const animatedElements = document.querySelectorAll(".onload-animation");
 		animatedElements.forEach((element, index) => {
 			const htmlElement = element as HTMLElement;
 			const delay =
 				Number.parseInt(htmlElement.style.animationDelay, 10) || index * 50;
 
-			// 重置动画
+			// アニメーションをリセット
 			htmlElement.style.opacity = "0";
 			htmlElement.style.transform = "translateY(1.5rem)";
 
@@ -120,7 +120,7 @@ export class AnimationManager {
 			}, delay);
 		});
 
-		// 重新初始化侧边栏组件
+		// サイドバーコンポーネントを再初期化
 		this.initializeSidebarComponents();
 	}
 
@@ -128,15 +128,15 @@ export class AnimationManager {
 	 * 初始化侧边栏组件
 	 */
 	private initializeSidebarComponents(): void {
-		// 查找页面中的侧边栏元素
+		// ページ内のサイドバー要素を検索
 		const sidebar = document.getElementById("sidebar");
 		if (sidebar) {
-			// 触发自定义事件，通知侧边栏重新初始化
+			// カスタムイベントを発火してサイドバーの再初期化を通知
 			const event = new CustomEvent("sidebar:init");
 			sidebar.dispatchEvent(event);
 		}
 
-		// 触发全局事件，通知所有组件重新初始化
+		// グローバルイベントを発火して全コンポーネントの再初期化を通知
 		const globalEvent = new CustomEvent("page:reinit");
 		document.dispatchEvent(globalEvent);
 	}
@@ -162,7 +162,7 @@ export class AnimationManager {
 			});
 		}, observerOptions);
 
-		// 观察所有需要滚动动画的元素
+		// スクロールアニメーションが必要な全要素を監視
 		const scrollElements = document.querySelectorAll(".animate-on-scroll");
 		scrollElements.forEach((element) => {
 			observer.observe(element);
@@ -210,7 +210,7 @@ export class AnimationManager {
 			right: "translateX(-1.5rem)",
 		};
 
-		// 设置初始状态
+		// 初期状態を設定
 		element.style.opacity = "0";
 		element.style.transform = transforms[direction];
 		element.style.transition = `opacity ${duration}ms ${easing}, transform ${duration}ms ${easing}`;
@@ -246,10 +246,10 @@ export class AnimationManager {
 	}
 }
 
-// 导出单例实例
+// シングルトンインスタンスをエクスポート
 export const animationManager = AnimationManager.getInstance();
 
-// 自动初始化
+// 自動初期化
 if (typeof window !== "undefined") {
 	if (document.readyState === "loading") {
 		document.addEventListener("DOMContentLoaded", () => {
