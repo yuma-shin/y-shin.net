@@ -90,9 +90,9 @@ export function applyThemeToDocument(theme: LIGHT_DARK_MODE) {
 			}, 0);
 		}
 
-		// 在下一帧快速移除保护类，使用微任务确保DOM更新完成
+		// 次フレームで保護クラスを素早く除去する（マイクロタスクで DOM 更新完了を保証）
 		if (needsThemeChange) {
-			// 使用 requestAnimationFrame 确保在下一帧移除过渡保护类
+			// requestAnimationFrame を使って次のフレームで遷移保護クラスを除去する
 			requestAnimationFrame(() => {
 				document.documentElement.classList.remove("is-theme-transitioning");
 			});
@@ -115,6 +115,6 @@ export function getStoredWallpaperMode(): WALLPAPER_MODE {
 
 export function setWallpaperMode(mode: WALLPAPER_MODE): void {
 	localStorage.setItem("wallpaperMode", mode);
-	// 触发自定义事件通知其他组件壁纸模式已改变
+	// カスタムイベントを発火して他のコンポーネントに壁紙モードの変更を通知
 	window.dispatchEvent(new CustomEvent('wallpaper-mode-change', { detail: { mode } }));
 }
