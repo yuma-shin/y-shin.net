@@ -1,51 +1,51 @@
-// 全局时间线横向滚动处理脚本
-// 该脚本处理所有带有 timeline-horizontal-scroll 类的元素的鼠标滚轮横向滚动
+// タイムライン水平スクロール処理スクリプト
+// timeline-horizontal-scroll クラスを持つ要素のマウスホイールによる水平スクロールを処理する
 
 (() => {
-	// 存储已绑定事件的元素，防止重复绑定
+	// イベントバインド済み要素を保持し、重複バインドを防止
 	const boundElements = new Set();
 
-	// 处理鼠标滚轮事件的函数
+	// マウスホイールイベントの処理関数
 	function handleWheel(e) {
-		// 检查是否为水平滚动容器
+		// 水平スクロールコンテナかどうかを確認
 		if (!this.classList.contains("timeline-horizontal-scroll")) {
 			return;
 		}
 
-		// 阻止默认的垂直滚动
+		// デフォルトの垂直スクロールを防止
 		if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
 			e.preventDefault();
-			// 将垂直滚动转换为水平滚动
+			// 垂直スクロールを水平スクロールに変換
 			this.scrollLeft += e.deltaY;
 		}
 	}
 
-	// 初始化滚动功能的函数
+	// スクロール機能の初期化関数
 	function initTimelineScroll() {
-		// 查找所有时间线水平滚动容器
+		// タイムライン水平スクロールコンテナを全て検索
 		var scrollContainers = document.querySelectorAll(
 			".timeline-horizontal-scroll",
 		);
 
 		scrollContainers.forEach((scrollContainer) => {
-			// 检查元素是否已经绑定过事件
+			// 要素が既にイベントバインド済みかチェック
 			if (boundElements.has(scrollContainer)) {
 				return;
 			}
 
-			// 检测是否为桌面端
+			// デスクトップ環境かどうかを検出
 			var isDesktop = window.matchMedia("(min-width: 768px)").matches;
 
 			if (isDesktop) {
-				// 移除之前可能添加的事件监听器，防止重复绑定
+				// 重複バインドを防ぐため、既存のイベントリスナーを削除
 				scrollContainer.removeEventListener("wheel", handleWheel);
 
-				// 添加新的事件监听器
+				// 新しいイベントリスナーを追加
 				scrollContainer.addEventListener("wheel", handleWheel, {
 					passive: false,
 				});
 
-				// 标记元素已绑定事件
+				// 要素をバインド済みとしてマーク
 				boundElements.add(scrollContainer);
 			}
 		});
