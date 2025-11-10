@@ -6,7 +6,7 @@ import type {
 } from "../types/config";
 
 /**
- * 组件映射表 - 将组件类型映射到实际的组件路径
+ * コンポーネントマッピング表 - コンポーネントタイプを実際のコンポーネントパスにマッピング
  */
 export const WIDGET_COMPONENT_MAP = {
 	profile: "../components/widget/Profile.astro",
@@ -15,13 +15,13 @@ export const WIDGET_COMPONENT_MAP = {
 	tags: "../components/widget/Tags.astro",
 	toc: "../components/widget/TOC.astro",
 	"music-player": "../components/widget/MusicPlayer.svelte",
-	//pio: "../components/widget/Pio.astro", // 添加 Pio 组件映射
-	custom: null, // 自定义组件需要在配置中指定路径
+	//pio: "../components/widget/Pio.astro", // Pio コンポーネントのマッピングを追加
+	custom: null, // カスタムコンポーネントは設定でパスを指定する必要がある
 } as const;
 
 /**
- * 组件管理器类
- * 负责管理侧边栏组件的动态加载、排序和渲染
+ * コンポーネントマネージャークラス
+ * サイドバーコンポーネントの動的ロード、ソート、レンダリングを管理
  */
 export class WidgetManager {
 	private config: SidebarLayoutConfig;
@@ -33,14 +33,14 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 获取配置
+	 * 設定を取得
 	 */
 	getConfig(): SidebarLayoutConfig {
 		return this.config;
 	}
 
 	/**
-	 * 获取启用的组件列表
+	 * 有効化されたコンポーネントリストを取得
 	 */
 	private getEnabledComponents(): WidgetComponentConfig[] {
 		return this.config.components
@@ -49,8 +49,8 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 根据位置获取组件列表
-	 * @param position 组件位置：'top' | 'sticky'
+	 * 位置に基づいてコンポーネントリストを取得
+	 * @param position コンポーネント位置：'top' | 'sticky'
 	 */
 	getComponentsByPosition(position: "top" | "sticky"): WidgetComponentConfig[] {
 		return this.enabledComponents.filter(
@@ -59,9 +59,9 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 获取组件的动画延迟时间
-	 * @param component 组件配置
-	 * @param index 组件在列表中的索引
+	 * コンポーネントのアニメーション遅延時間を取得
+	 * @param component コンポーネント設定
+	 * @param index リスト内のコンポーネントのインデックス
 	 */
 	getAnimationDelay(component: WidgetComponentConfig, index: number): number {
 		if (component.animationDelay !== undefined) {
@@ -79,19 +79,19 @@ export class WidgetManager {
 	}
 
 	/**
-	 * 获取组件的CSS类名
-	 * @param component 组件配置
-	 * @param index 组件在列表中的索引
+	 * コンポーネントのCSSクラス名を取得
+	 * @param component コンポーネント設定
+	 * @param index リスト内のコンポーネントのインデックス
 	 */
 	getComponentClass(component: WidgetComponentConfig, _index: number): string {
 		const classes: string[] = [];
 
-		// 添加基础类名
+		// 基本クラス名を追加
 		if (component.class) {
 			classes.push(component.class);
 		}
 
-		// 添加响应式隐藏类名
+		// レスポンシブ用の非表示クラス名を追加
 		if (component.responsive?.hidden) {
 			component.responsive.hidden.forEach((device) => {
 				switch (device) {
