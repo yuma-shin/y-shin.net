@@ -63,8 +63,8 @@ const shuffledItems = shuffleArray(items);
           <div class="grid grid-cols-1 gap-x-8 gap-y-10 mt-8">
                 {shuffledItems.map((item) => (
                     <div class="flex flex-nowrap items-stretch h-28 gap-4 rounded-[var(--radius-large)]">
-                        <div class="w-30 h-30 flex-shrink-0 rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-900">
-                            <img src={item.imgurl} class="w-full h-full object-cover">
+                        <div class="w-30 h-30 flex-shrink-0 rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-900 max-w-[7.5rem] max-h-[7.5rem]">
+                            <img src={item.imgurl} class="w-full h-full object-cover flex-shrink-0">
                         </div>
                         <div class="grow w-full">
                             <div class="font-bold transition text-lg text-neutral-900 dark:text-neutral-100 mb-1">{item.title}</div>
