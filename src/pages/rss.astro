@@ -45,6 +45,7 @@ const recentPosts = posts.slice(0, 6);
                         id="copy-rss-btn"
                         class="px-4 py-2 bg-[var(--primary)] text-white rounded-lg hover:opacity-80 transition-all duration-200 font-medium text-sm whitespace-nowrap"
                         data-url={`${Astro.site}rss.xml`}
+                        data-success-text={i18n(I18nKey.rssCopied)}
                     >
                         {i18n(I18nKey.rssCopyLink)}
                     </button>
@@ -105,7 +106,7 @@ const recentPosts = posts.slice(0, 6);
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        function initRssCopyButton() {
             const copyBtn = document.getElementById('copy-rss-btn');
             if (copyBtn) {
                 copyBtn.addEventListener('click', async function() {
@@ -114,7 +115,7 @@ const recentPosts = posts.slice(0, 6);
                     try {
                         await navigator.clipboard.writeText(url);
                         const originalText = this.textContent || "Copy Link";
-                        this.textContent = "RSS link copied to clipboard!";
+                        this.textContent = this.getAttribute('data-success-text') || "RSS link copied to clipboard!";
                         this.style.backgroundColor = 'var(--success-color, #10b981)';
                         
                         setTimeout(() => {
@@ -131,6 +132,12 @@ const recentPosts = posts.slice(0, 6);
                     }
                 });
             }
-        });
+        }
+
+        // Initialize on page load
+        initRssCopyButton();
+
+        // Re-initialize on Astro navigation
+        document.addEventListener('astro:after-swap', initRssCopyButton);
     </script>
 </MainGridLayout>

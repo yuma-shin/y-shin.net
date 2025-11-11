@@ -128,7 +128,7 @@ export const ja: Translation = {
 	// RSSページ
 	[Key.rss]: "RSSフィード",
 	[Key.rssDescription]: "最新の更新を購読する",
-	[Key.rssSubtitle]: "RSSで購読して、最新の記事と更新を第一时间で取得する",
+	[Key.rssSubtitle]: "RSSで購読して、最新の記事と更新を取得する",
 	[Key.rssLink]: "RSSリンク",
 	[Key.rssCopyToReader]: "RSSリンクをリーダーにコピー",
 	[Key.rssCopyLink]: "リンクをコピー",
@@ -137,19 +137,19 @@ export const ja: Translation = {
 	[Key.rssWhatIsRSSDescription]:
 		"RSS（Really Simple Syndication）は、頻繁に更新されるコンテンツを公開するための標準形式です。RSSを使用すると：",
 	[Key.rssBenefit1]:
-		"手動で訪問することなく、最新のウェブサイトコンテンツを及时に取得",
+		"手動で訪問することなく、最新のウェブサイトコンテンツを取得",
 	[Key.rssBenefit2]: "1か所で複数のウェブサイトの購読を管理",
 	[Key.rssBenefit3]: "重要な更新や記事を見逃すことを回避",
 	[Key.rssBenefit4]: "広告なしのクリーンな読書体験を楽しむ",
 	[Key.rssHowToUse]:
 		"Feedly、Inoreaderまたは他のRSSリーダーを使用してこのサイトを購読することを推奨します。",
-	[Key.rssCopied]: "RSSリンクがクリップボードにコピーされました！",
+	[Key.rssCopied]: "クリップボードにコピーされました！",
 	[Key.rssCopyFailed]: "コピーに失敗しました。手動でリンクをコピーしてください",
 
 	// Atomページ
 	[Key.atom]: "Atomフィード",
 	[Key.atomDescription]: "最新の更新を購読する",
-	[Key.atomSubtitle]: "Atomで購読して、最新の記事と更新を第一时间で取得する",
+	[Key.atomSubtitle]: "Atomで購読して、最新の記事と更新を取得する",
 	[Key.atomLink]: "Atomリンク",
 	[Key.atomCopyToReader]: "Atomリンクをリーダーにコピー",
 	[Key.atomCopyLink]: "リンクをコピー",
@@ -158,13 +158,13 @@ export const ja: Translation = {
 	[Key.atomWhatIsAtomDescription]:
 		"Atom連合フォーマット（Atom Syndication Format）は、フィードとそのアイテムを記述するためのXMLベースの標準です。Atomを使用すると：",
 	[Key.atomBenefit1]:
-		"手動で訪問することなく、最新のウェブサイトコンテンツを及时に取得",
+		"手動で訪問することなく、最新のウェブサイトコンテンツを取得",
 	[Key.atomBenefit2]: "1か所で複数のウェブサイトの購読を管理",
 	[Key.atomBenefit3]: "重要な更新や記事を見逃すことを回避",
 	[Key.atomBenefit4]: "広告なしのクリーンな読書体験を楽しむ",
 	[Key.atomHowToUse]:
 		"Feedly、Inoreaderまたは他のAtomリーダーを使用してこのサイトを購読することを推奨します。",
-	[Key.atomCopied]: "Atomリンクがクリップボードにコピーされました！",
+	[Key.atomCopied]: "クリップボードにコピーされました！",
 	[Key.atomCopyFailed]: "コピーに失敗しました。手動でリンクをコピーしてください",
 
 	// スキルページ

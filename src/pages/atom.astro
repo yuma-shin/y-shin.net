@@ -45,6 +45,7 @@ const recentPosts = posts.slice(0, 6);
                         id="copy-atom-btn"
                         class="px-4 py-2 bg-[var(--primary)] text-white rounded-lg hover:opacity-80 transition-all duration-200 font-medium text-sm whitespace-nowrap"
                         data-url={`${Astro.site}atom.xml`}
+                        data-success-text={i18n(I18nKey.atomCopied)}
                     >
                         {i18n(I18nKey.atomCopyLink) || "Copy Link"}
                     </button>
@@ -103,24 +104,37 @@ const recentPosts = posts.slice(0, 6);
 </MainGridLayout>
 
 <script>
-    // Copy button functionality
-    document.getElementById('copy-atom-btn')?.addEventListener('click', function() {
-        const url = this.getAttribute('data-url');
-        if (url) {
-            navigator.clipboard.writeText(url).then(() => {
-                const originalText = this.textContent || "Copy Link";
-                this.textContent = "Atom link copied to clipboard!";
-                setTimeout(() => {
-                    this.textContent = originalText;
-                }, 2000);
-            }).catch(err => {
-                console.error('复制失败:', err);
-                const originalText = this.textContent || "Copy Link";
-                this.textContent = "Copy failed, please copy the link manually";
-                setTimeout(() => {
-                    this.textContent = originalText;
-                }, 2000);
+    function initAtomCopyButton() {
+        const copyBtn = document.getElementById('copy-atom-btn');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', async function() {
+                const url = this.getAttribute('data-url');
+                if (!url) return;
+                try {
+                    await navigator.clipboard.writeText(url);
+                    const originalText = this.textContent || "Copy Link";
+                    this.textContent = this.getAttribute('data-success-text') || "Atom link copied to clipboard!";
+                    this.style.backgroundColor = 'var(--success-color, #10b981)';
+                    
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                        this.style.backgroundColor = '';
+                    }, 2000);
+                } catch (err) {
+                    console.error('复制失败:', err);
+                    const originalText = this.textContent || "Copy Link";
+                    this.textContent = "Copy failed, please copy the link manually";
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                    }, 2000);
+                }
             });
         }
-    });
+    }
+
+    // Initialize on page load
+    initAtomCopyButton();
+
+    // Re-initialize on Astro navigation
+    document.addEventListener('astro:after-swap', initAtomCopyButton);
 </script>
