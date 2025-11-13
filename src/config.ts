@@ -302,7 +302,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
   avatar: "assets/images/avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
   name: "Yuma Shintani",
-  bio: "社会人7年目のエンジニアです。某ゲームメーカーにて社内システムの検証・自動テスト開発を担当しています。",
+  bio: "社会人7年目のエンジニアです。ゲーム関連会社にて社内システムの検証・自動テスト開発を担当しています。",
   links: [
     {
       name: "GitHub",
