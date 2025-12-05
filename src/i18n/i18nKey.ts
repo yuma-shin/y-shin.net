@@ -8,6 +8,12 @@ enum I18nKey {
 	search = "search",
 	other = "other",
 
+	// 导航栏标题
+	navLinks = "navLinks",
+	navMy = "navMy",
+	navAbout = "navAbout",
+	navOthers = "navOthers",
+
 	tags = "tags",
 	categories = "categories",
 	recentPosts = "recentPosts",
@@ -45,8 +51,17 @@ enum I18nKey {
 	publishedAt = "publishedAt",
 	license = "license",
 	friends = "friends",
+	friendsSubtitle = "friendsSubtitle",
+	friendsSearchPlaceholder = "friendsSearchPlaceholder",
+	friendsFilterAll = "friendsFilterAll",
+	friendsNoResults = "friendsNoResults",
+	friendsVisit = "friendsVisit",
+	friendsCopyLink = "friendsCopyLink",
+	friendsCopySuccess = "friendsCopySuccess",
+	friendsTags = "friendsTags",
 	anime = "anime",
 	diary = "diary",
+	gallery = "gallery",
 
 	// 番剧页面
 	animeTitle = "animeTitle",
@@ -66,7 +81,6 @@ enum I18nKey {
 	// 短文页面
 	diarySubtitle = "diarySubtitle",
 	diaryCount = "diaryCount",
-	diaryImage = "diaryImage",
 	diaryReply = "diaryReply",
 	diaryTips = "diaryTips",
 	diaryMinutesAgo = "diaryMinutesAgo",
@@ -90,6 +104,10 @@ enum I18nKey {
 	albumsBackToList = "albumsBackToList",
 	albumsPhotoCount = "albumsPhotoCount",
 	albumsPhotosCount = "albumsPhotosCount",
+
+	// 设备页面
+	devices = "devices",
+	devicesSubtitle = "devicesSubtitle",
 
 	// 项目展示页面
 	projects = "projects",
@@ -235,6 +253,38 @@ enum I18nKey {
 	wallpaperBanner = "wallpaperBanner",
 	wallpaperFullscreen = "wallpaperFullscreen",
 	wallpaperNone = "wallpaperNone",
+
+	// 站点统计
+	siteStats = "siteStats",
+	siteStatsPostCount = "siteStatsPostCount",
+	siteStatsCategoryCount = "siteStatsCategoryCount",
+	siteStatsTagCount = "siteStatsTagCount",
+	siteStatsTotalWords = "siteStatsTotalWords",
+	siteStatsRunningDays = "siteStatsRunningDays",
+	siteStatsLastUpdate = "siteStatsLastUpdate",
+	siteStatsDaysAgo = "siteStatsDaysAgo",
+	siteStatsDays = "siteStatsDays",
+
+	// 日历组件
+	calendarSunday = "calendarSunday",
+	calendarMonday = "calendarMonday",
+	calendarTuesday = "calendarTuesday",
+	calendarWednesday = "calendarWednesday",
+	calendarThursday = "calendarThursday",
+	calendarFriday = "calendarFriday",
+	calendarSaturday = "calendarSaturday",
+	calendarJanuary = "calendarJanuary",
+	calendarFebruary = "calendarFebruary",
+	calendarMarch = "calendarMarch",
+	calendarApril = "calendarApril",
+	calendarMay = "calendarMay",
+	calendarJune = "calendarJune",
+	calendarJuly = "calendarJuly",
+	calendarAugust = "calendarAugust",
+	calendarSeptember = "calendarSeptember",
+	calendarOctober = "calendarOctober",
+	calendarNovember = "calendarNovember",
+	calendarDecember = "calendarDecember",
 }
 
 export default I18nKey;

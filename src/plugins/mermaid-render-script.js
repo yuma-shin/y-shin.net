@@ -1,19 +1,19 @@
 (() => {
-	// シングルトンパターン：既に初期化済みかチェック
+	// 单例模式：检查是否已经初始化过
 	if (window.mermaidInitialized) {
 		return;
 	}
 
 	window.mermaidInitialized = true;
 
-	// 現在のテーマ状態を記録し、不要な再レンダリングを防止
+	// 记录当前主题状态，避免不必要的重新渲染
 	let currentTheme = null;
-	let isRendering = false; // 並行レンダリングを防止
+	let isRendering = false; // 防止并发渲染
 	let retryCount = 0;
 	const MAX_RETRIES = 3;
 	const RETRY_DELAY = 1000; // 1秒
 
-	// テーマが実際に変更されたかチェック
+	// 检查主题是否真的发生了变化
 	function hasThemeChanged() {
 		const isDark = document.documentElement.classList.contains("dark");
 		const newTheme = isDark ? "dark" : "default";
@@ -25,7 +25,7 @@
 		return false;
 	}
 
-	// Mermaidライブラリの読み込み完了を待機
+	// 等待 Mermaid 库加载完成
 	function waitForMermaid(timeout = 10000) {
 		return new Promise((resolve, reject) => {
 			const startTime = Date.now();
@@ -44,7 +44,7 @@
 		});
 	}
 
-	// MutationObserverを設定してhtml要素のclass属性の変更を監視
+	// 设置 MutationObserver 监听 html 元素的 class 属性变化
 	function setupMutationObserver() {
 		const observer = new MutationObserver((mutations) => {
 			mutations.forEach((mutation) => {
@@ -52,7 +52,7 @@
 					mutation.type === "attributes" &&
 					mutation.attributeName === "class"
 				) {
-					// darkクラスの変更をチェック
+					// 检查是否是 dark 类的变化
 					const target = mutation.target;
 					const wasDark = mutation.oldValue
 						? mutation.oldValue.includes("dark")
@@ -61,7 +61,7 @@
 
 					if (wasDark !== isDark) {
 						if (hasThemeChanged()) {
-							// テーマ切り替え時のちらつきを防ぐため遅延レンダリング
+							// 延迟渲染，避免主题切换时的闪烁
 							setTimeout(() => renderMermaidDiagrams(), 150);
 						}
 					}
@@ -69,7 +69,7 @@
 			});
 		});
 
-		// html要素のclass属性変更の監視を開始
+		// 开始观察 html 元素的 class 属性变化
 		observer.observe(document.documentElement, {
 			attributes: true,
 			attributeFilter: ["class"],
@@ -77,19 +77,155 @@
 		});
 	}
 
-	// その他のイベントリスナーを設定
+	// 缩放平移
+	function attachZoomControls(element, svgElement) {
+		if (element.__zoomAttached) return;
+		element.__zoomAttached = true;
+
+		const wrapper = document.createElement("div");
+		wrapper.className = "mermaid-zoom-wrapper";
+
+		const svgParent = svgElement.parentNode;
+		wrapper.appendChild(svgElement);
+		svgParent.appendChild(wrapper);
+
+		let scale = 1;
+		let tx = 0;
+		let ty = 0;
+		const MIN_SCALE = 0.2;
+		const MAX_SCALE = 6;
+
+		function applyTransform() {
+			wrapper.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+		}
+		const controls = document.createElement("div");
+		controls.className = "mermaid-zoom-controls";
+		controls.innerHTML = `
+			<button class="btn-regular rounded-lg h-10 w-10 active:scale-90" data-action="zoom-in" title="Zoom in">+</button>
+			<button class="btn-regular rounded-lg h-10 w-10 active:scale-90" data-action="zoom-out" title="Zoom out">−</button>
+			<button class="btn-regular rounded-lg h-10 w-10 active:scale-90" data-action="reset" title="Reset">⤾</button>
+		`;
+		element.appendChild(controls);
+
+		controls.addEventListener("click", (ev) => {
+			const action =
+				ev.target.getAttribute && ev.target.getAttribute("data-action");
+			if (!action) return;
+
+			switch (action) {
+				case "zoom-in":
+					scale = Math.min(MAX_SCALE, +(scale * 1.2).toFixed(3));
+					applyTransform();
+					break;
+				case "zoom-out":
+					scale = Math.max(MIN_SCALE, +(scale / 1.2).toFixed(3));
+					applyTransform();
+					break;
+				case "reset":
+					scale = 1;
+					tx = 0;
+					ty = 0;
+					applyTransform();
+					break;
+			}
+		});
+
+		let isPanning = false;
+		let startX = 0;
+		let startY = 0;
+		let startTx = 0;
+		let startTy = 0;
+
+		wrapper.style.touchAction = "none";
+
+		wrapper.addEventListener("pointerdown", (ev) => {
+			if (ev.button !== 0) return; // 仅左键
+			isPanning = true;
+			wrapper.setPointerCapture(ev.pointerId);
+			startX = ev.clientX;
+			startY = ev.clientY;
+			startTx = tx;
+			startTy = ty;
+		});
+
+		wrapper.addEventListener("pointermove", (ev) => {
+			if (!isPanning) return;
+			const dx = ev.clientX - startX;
+			const dy = ev.clientY - startY;
+			tx = startTx + dx / scale; // 根据当前缩放调整灵敏度
+			ty = startTy + dy / scale;
+			applyTransform();
+		});
+
+		wrapper.addEventListener("pointerup", (ev) => {
+			isPanning = false;
+			try {
+				wrapper.releasePointerCapture(ev.pointerId);
+			} catch (e) {}
+		});
+
+		wrapper.addEventListener("pointercancel", () => {
+			isPanning = false;
+		});
+
+		// 鼠标滚轮缩放
+		element.addEventListener(
+			"wheel",
+			(ev) => {
+				ev.preventDefault();
+				const delta = -ev.deltaY;
+				const zoomFactor = delta > 0 ? 1.12 : 1 / 1.12;
+				const prevScale = scale;
+				scale = Math.min(
+					MAX_SCALE,
+					Math.max(MIN_SCALE, +(scale * zoomFactor).toFixed(3)),
+				);
+
+				const rect = wrapper.getBoundingClientRect();
+				const cx = ev.clientX - rect.left;
+				const cy = ev.clientY - rect.top;
+
+				const worldX = cx / prevScale - tx;
+				const worldY = cy / prevScale - ty;
+
+				tx = cx / scale - worldX;
+				ty = cy / scale - worldY;
+
+				applyTransform();
+			},
+			{ passive: false },
+		);
+
+		// 双击重置
+		wrapper.addEventListener("dblclick", () => {
+			scale = 1;
+			tx = 0;
+			ty = 0;
+			applyTransform();
+		});
+		applyTransform();
+		let resizeTimer = null;
+		window.addEventListener("resize", () => {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(() => {
+				applyTransform();
+			}, 200);
+		});
+	}
+
+	// 设置其他事件监听器
 	function setupEventListeners() {
-		// ページ遷移を監視
+		// 监听页面切换
 		document.addEventListener("astro:page-load", () => {
-			// テーマ状態を再初期化
+			// 重新初始化主题状态
 			currentTheme = null;
-			retryCount = 0; // リトライカウントをリセット
+			retryCount = 0; // 重置重试计数
 			if (hasThemeChanged()) {
 				setTimeout(() => renderMermaidDiagrams(), 100);
 			}
 		});
 
-		// ページの可視性変更を監視し、再表示時に再レンダリング
+		// 监听页面可见性变化，页面重新可见时重新渲染
 		document.addEventListener("visibilitychange", () => {
 			if (!document.hidden) {
 				setTimeout(() => renderMermaidDiagrams(), 200);
@@ -101,7 +237,7 @@
 		try {
 			await waitForMermaid();
 
-			// Mermaid設定を初期化
+			// 初始化 Mermaid 配置
 			window.mermaid.initialize({
 				startOnLoad: false,
 				theme: "default",
@@ -202,15 +338,23 @@
 								code,
 							);
 
-							element.innerHTML = svg;
+							const parser = new DOMParser();
+							const doc = parser.parseFromString(svg, "image/svg+xml");
+							const svgElement = doc.documentElement;
+
+							element.innerHTML = "";
+							element.__zoomAttached = false;
+							element.appendChild(svgElement);
 
 							// 添加响应式支持
-							const svgElement = element.querySelector("svg");
-							if (svgElement) {
-								svgElement.setAttribute("width", "100%");
-								svgElement.removeAttribute("height");
-								svgElement.style.maxWidth = "100%";
-								svgElement.style.height = "auto";
+							const insertedSvg = element.querySelector("svg");
+							if (insertedSvg) {
+								insertedSvg.setAttribute("width", "100%");
+								insertedSvg.removeAttribute("height");
+								insertedSvg.style.maxWidth = "100%";
+								insertedSvg.style.height = "auto";
+								//Todo 需要根据实际情况
+								insertedSvg.style.minHeight = "300px";
 
 								// 强制应用样式
 								if (isDark) {
@@ -218,6 +362,7 @@
 								} else {
 									svgElement.style.filter = "none";
 								}
+								attachZoomControls(element, insertedSvg);
 							}
 
 							// 渲染成功，跳出重试循环

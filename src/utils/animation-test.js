@@ -1,16 +1,16 @@
-// アニメーションテストツール - yukinaスタイルのスライド効果を検証
+// 动画测试工具 - 验证yukina风格的侧滑效果
 
 export function testSlideAnimation() {
 	console.log("Testing slide animation effects...");
 
-	// メインアニメーション要素をテスト
+	// 测试主要动画元素
 	const mainElements = document.querySelectorAll(".transition-main");
 	const animationElements = document.querySelectorAll(".onload-animation");
 
 	console.log(`Found ${mainElements.length} main transition elements`);
 	console.log(`Found ${animationElements.length} onload animation elements`);
 
-	// CSSアニメーションプロパティを検査
+	// 检查CSS动画属性
 	mainElements.forEach((el, index) => {
 		const styles = window.getComputedStyle(el);
 		console.log(`Element ${index}:`, {
@@ -27,27 +27,27 @@ export function testSlideAnimation() {
 	};
 }
 
-// ページ遷移アニメーションをシミュレート
+// 模拟页面切换动画
 export function simulatePageTransition() {
 	const body = document.body;
 	const html = document.documentElement;
 
-	// 離脱状態を追加
+	// 添加离开状态
 	html.classList.add("is-animating", "is-leaving");
 
 	setTimeout(() => {
-		// 離脱状態を除去し、進入状態を追加
+		// 移除离开状态，添加进入状态
 		html.classList.remove("is-leaving");
 
 		setTimeout(() => {
-			// アニメーション完了
+			// 完成动画
 			html.classList.remove("is-animating");
 			console.log("Page transition simulation completed");
 		}, 300);
 	}, 300);
 }
 
-// コンソールで利用可能なテスト関数
+// 在控制台中可用的测试函数
 if (typeof window !== "undefined") {
 	window.testSlideAnimation = testSlideAnimation;
 	window.simulatePageTransition = simulatePageTransition;

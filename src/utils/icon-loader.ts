@@ -1,5 +1,5 @@
-// アイコン読み込みユーティリティ
-// 安定した Iconify アイコン読み込みを提供する
+// 图标加载工具类
+// 提供可靠的Iconify图标加载解决方案
 
 interface IconifyLoadOptions {
 	timeout?: number;
@@ -24,17 +24,17 @@ class IconLoader {
 	}
 
 	/**
-	 * Iconify アイコンライブラリを読み込む
+	 * 加载Iconify图标库
 	 */
 	async loadIconify(options: IconifyLoadOptions = {}): Promise<void> {
 		const { timeout = 10000, retryCount = 3, retryDelay = 1000 } = options;
 
-		// 既に読み込み済みなら即座に戻す
+		// 如果已经加载完成，直接返回
 		if (this.isLoaded) {
 			return Promise.resolve();
 		}
 
-		// 読み込み中であれば既存の Promise を返す
+		// 如果正在加载，返回现有的Promise
 		if (this.isLoading && this.loadPromise) {
 			return this.loadPromise;
 		}
@@ -55,7 +55,7 @@ class IconLoader {
 	}
 
 	/**
-	 * リトライ機構付き読み込み
+	 * 带重试机制的加载
 	 */
 	private async loadWithRetry(
 		timeout: number,
@@ -75,23 +75,23 @@ class IconLoader {
 					);
 				}
 
-				// 待機してから再試行する
+				// 等待后重试
 				await new Promise((resolve) => setTimeout(resolve, retryDelay));
 			}
 		}
 	}
 
 	/**
-	 * スクリプトを読み込む
+	 * 加载脚本
 	 */
 	private loadScript(timeout: number): Promise<void> {
 		return new Promise((resolve, reject) => {
-			// 既にスクリプトが存在するかをチェック
+			// 检查是否已经存在脚本
 			const existingScript = document.querySelector(
 				'script[src*="iconify-icon"]',
 			);
 			if (existingScript) {
-				// Iconify が既に利用可能かを確認
+				// 检查Iconify是否已经可用
 				if (this.isIconifyReady()) {
 					resolve();
 					return;
@@ -111,7 +111,7 @@ class IconLoader {
 
 			script.onload = () => {
 				clearTimeout(timeoutId);
-				// Iconify の初期化完了を待機
+				// 等待Iconify完全初始化
 				this.waitForIconifyReady().then(resolve).catch(reject);
 			};
 
@@ -126,7 +126,7 @@ class IconLoader {
 	}
 
 	/**
-	 * Iconify の初期化完了を待機する
+	 * 等待Iconify完全准备就绪
 	 */
 	private waitForIconifyReady(maxWait = 5000): Promise<void> {
 		return new Promise((resolve, reject) => {
@@ -151,7 +151,7 @@ class IconLoader {
 	}
 
 	/**
-	 * Iconify が準備完了かをチェックする
+	 * 检查Iconify是否准备就绪
 	 */
 	private isIconifyReady(): boolean {
 		return (
@@ -162,7 +162,7 @@ class IconLoader {
 	}
 
 	/**
-	 * 読み込み完了のオブザーバーを追加
+	 * 添加加载完成观察者
 	 */
 	onLoad(callback: () => void): void {
 		if (this.isLoaded) {
@@ -173,14 +173,14 @@ class IconLoader {
 	}
 
 	/**
-	 * オブザーバーを削除
+	 * 移除观察者
 	 */
 	offLoad(callback: () => void): void {
 		this.observers.delete(callback);
 	}
 
 	/**
-	 * 全オブザーバーに通知
+	 * 通知所有观察者
 	 */
 	private notifyObservers(): void {
 		this.observers.forEach((callback) => {
@@ -194,7 +194,7 @@ class IconLoader {
 	}
 
 	/**
-	 * 読み込み状態を取得
+	 * 获取加载状态
 	 */
 	getLoadState(): { isLoaded: boolean; isLoading: boolean } {
 		return {
@@ -204,7 +204,7 @@ class IconLoader {
 	}
 
 	/**
-	 * 指定アイコンをプリロードする
+	 * 预加载指定图标
 	 */
 	async preloadIcons(icons: string[]): Promise<void> {
 		if (!this.isLoaded) {
@@ -228,16 +228,16 @@ class IconLoader {
 				}
 			};
 
-			// 読み込みをトリガーするための一時アイコン要素を作成
+			// 创建临时图标元素来触发加载
 			icons.forEach((icon) => {
 				const tempIcon = document.createElement("iconify-icon");
 				tempIcon.setAttribute("icon", icon);
 				tempIcon.style.display = "none";
 				tempIcon.onload = checkComplete;
-				tempIcon.onerror = checkComplete; // 読み込みに失敗しても処理を続行する
+				tempIcon.onerror = checkComplete; // 即使加载失败也要继续
 				document.body.appendChild(tempIcon);
 
-				// 一時要素をクリーンアップ
+				// 清理临时元素
 				setTimeout(() => {
 					if (tempIcon.parentNode) {
 						tempIcon.parentNode.removeChild(tempIcon);
@@ -245,7 +245,7 @@ class IconLoader {
 				}, 1000);
 			});
 
-			// タイムアウトを設定
+			// 设置超时
 			setTimeout(() => {
 				resolve();
 			}, 5000);
@@ -253,10 +253,10 @@ class IconLoader {
 	}
 }
 
-// シングルトンインスタンスをエクスポート
+// 导出单例实例
 export const iconLoader = IconLoader.getInstance();
 
-// 利便性の高い関数をエクスポート
+// 导出便捷函数
 export const loadIconify = (options?: IconifyLoadOptions) =>
 	iconLoader.loadIconify(options);
 export const preloadIcons = (icons: string[]) => iconLoader.preloadIcons(icons);

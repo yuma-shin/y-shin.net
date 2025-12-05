@@ -1,24 +1,24 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import type { AlbumGroup, Photo } from "../data/1";
+import type { AlbumGroup, Photo } from "../types/album";
 
 export async function scanAlbums(): Promise<AlbumGroup[]> {
 	const albumsDir = path.join(process.cwd(), "public/images/albums");
 	const albums: AlbumGroup[] = [];
 
-	// ディレクトリが存在するか確認
+	// 检查目录是否存在
 	if (!fs.existsSync(albumsDir)) {
 		console.warn("相册目录不存在:", albumsDir);
 		return [];
 	}
 
-	// 全てのサブフォルダを取得
+	// 获取所有子文件夹
 	const albumFolders = fs
 		.readdirSync(albumsDir, { withFileTypes: true })
 		.filter((dirent) => dirent.isDirectory())
 		.map((dirent) => dirent.name);
 
-	// 各アルバムフォルダを処理する
+	// 处理每个相册文件夹
 	for (const folder of albumFolders) {
 		const albumPath = path.join(albumsDir, folder);
 		const album = await processAlbumFolder(albumPath, folder);
@@ -34,7 +34,7 @@ async function processAlbumFolder(
 	folderPath: string,
 	folderName: string,
 ): Promise<AlbumGroup | null> {
-	// 必要なファイルがあるかをチェック
+	// 检查必要文件
 	const infoPath = path.join(folderPath, "info.json");
 
 	if (!fs.existsSync(infoPath)) {
@@ -42,7 +42,7 @@ async function processAlbumFolder(
 		return null;
 	}
 
-	// アルバム情報を読み込む
+	// 读取相册信息
 	const infoContent = fs.readFileSync(infoPath, "utf-8");
 	let info: Record<string, any>;
 	try {
@@ -52,13 +52,13 @@ async function processAlbumFolder(
 		return null;
 	}
 
-	// 外部リンクモードかを確認
+	// 检查是否为外链模式
 	const isExternalMode = info.mode === "external";
 	let photos: Photo[] = [];
 	let cover: string;
 
 	if (isExternalMode) {
-	// 外部リンクモード：info.json からカバーと写真を取得する
+		// 外链模式：从 info.json 中获取封面和照片
 		if (!info.cover) {
 			console.warn(`相册 ${folderName} 外链模式缺少 cover 字段`);
 			return null;
@@ -67,7 +67,7 @@ async function processAlbumFolder(
 		cover = info.cover;
 		photos = processExternalPhotos(info.photos || [], folderName);
 	} else {
-	// ローカルモード：ローカルファイルをチェックする
+		// 本地模式：检查本地文件
 		const coverPath = path.join(folderPath, "cover.jpg");
 		if (!fs.existsSync(coverPath)) {
 			console.warn(`相册 ${folderName} 缺少 cover.jpg 文件`);
@@ -78,13 +78,13 @@ async function processAlbumFolder(
 		photos = scanPhotos(folderPath, folderName);
 	}
 
-	// アルバムが非表示に設定されているかを確認
+	// 检查是否隐藏相册
 	if (info.hidden === true) {
 		console.log(`相册 ${folderName} 已设置为隐藏，跳过显示`);
 		return null;
 	}
 
-	// アルバムオブジェクトを構築
+	// 构建相册对象
 	return {
 		id: folderName,
 		title: info.title || folderName,
@@ -103,7 +103,7 @@ function scanPhotos(folderPath: string, albumId: string): Photo[] {
 	const photos: Photo[] = [];
 	const files = fs.readdirSync(folderPath);
 
-	// 画像ファイルをフィルタリング
+	// 过滤出图片文件
 	const imageFiles = files.filter((file) => {
 		const ext = path.extname(file).toLowerCase();
 		return (
@@ -122,12 +122,12 @@ function scanPhotos(folderPath: string, albumId: string): Photo[] {
 		);
 	});
 
-	// 各写真を処理する
+	// 处理每张照片
 	imageFiles.forEach((file, index) => {
 		const filePath = path.join(folderPath, file);
 		const stats = fs.statSync(filePath);
 
-	// ファイル名からタグを解析
+		// 解析文件名中的标签
 		const { baseName, tags } = parseFileName(file);
 
 		photos.push({
@@ -167,9 +167,9 @@ function processExternalPhotos(
 			location: photo.location,
 			width: photo.width,
 			height: photo.height,
-			camera: photo.camera,
-			lens: photo.lens,
-			settings: photo.settings,
+			// camera: photo.camera,
+			// lens: photo.lens,
+			// settings: photo.settings,
 		});
 	});
 
