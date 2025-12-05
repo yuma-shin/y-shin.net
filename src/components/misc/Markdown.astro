@@ -13,6 +13,16 @@ const className = Astro.props.class;
     <slot/>
 </div>
 
+<!-- Link Card -->
+<script>
+  let linkCards = Array.from(document.querySelectorAll(".rlc-container")) as HTMLElement[];
+  for (let linkCard of linkCards) {
+    linkCard.classList.add("no-styling");
+    linkCard.style.textDecoration = "none";
+    linkCard.setAttribute("target", "_blank");
+  }
+</script>
+
 <script>
 document.addEventListener("click", function (e: MouseEvent) {
     const target = e.target as Element | null;
