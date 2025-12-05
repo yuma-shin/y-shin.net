@@ -149,7 +149,7 @@ export default defineConfig({
 
 1. `src/layouts/Layout.astro`で`preElements`を削除する
 
-```javascript title="Laayout.astro" del={20-30}
+```javascript title="Layout.astro" del={20-30}
 function initCustomScrollbar() {
 	const bodyElement = document.querySelector('body');
 	if (!bodyElement) return;

@@ -24,6 +24,11 @@
         underline decoration-[var(--link-underline)] decoration-1 decoration-dashed underline-offset-4;
         box-decoration-break: clone;
         -webkit-box-decoration-break: clone;
+        padding-right:0.25rem;
+        padding-left:0.25rem;
+        padding-top:0.125rem;
+        padding-bottom:0.125rem;
+        border-radius: 0.375rem;
     
         &:hover, &:active {
             @apply decoration-transparent;
