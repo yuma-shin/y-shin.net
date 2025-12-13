@@ -1,18 +1,11 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { commentConfig } from "@/config";
-import { removeFileExtension } from "@/utils/url-utils";
-import Twikoo from "./Twikoo.astro";
 import Giscus from "./Giscus.svelte";
 
 interface Props {
 	post: CollectionEntry<"posts">;
 }
-
-const { id, data, slug } = Astro.props.post;
-
-const path = `/posts/${slug}`;
-const url = `${Astro.site?.href}${path}`;
 
 let commentService = "";
 if (commentConfig?.enable === true) {
