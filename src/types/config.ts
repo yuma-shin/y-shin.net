@@ -90,12 +90,14 @@ export type SiteConfig = {
 			localFonts: string[];
 			enableCompress: boolean;
 		};
+		/*
 		cjkFont: {
 			fontFamily: string;
 			fontWeight: string | number;
 			localFonts: string[];
 			enableCompress: boolean;
 		};
+		*/
 	};
 
 	// 添加bangumi配置
