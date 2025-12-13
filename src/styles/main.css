@@ -13,19 +13,8 @@
 @font-face {
   font-family: 'ZenMaruGothic-Medium';
   src: url('/assets/font/ZenMaruGothic-Medium.ttf') format('truetype');
-  font-weight: 500;
+  font-weight: 400;
   font-display: swap;
-}
-
-
-
-/* 导入 Hanalei 字体 */
-@font-face {
-	font-family: "Hanalei";
-	src: url("/assets/font/Hanalei.woff2") format("woff2");
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
 }
 
 @tailwind base;
