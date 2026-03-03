@@ -183,17 +183,17 @@ export const siteConfig: SiteConfig = {
 
 	// 字体配置
 	font: {
-		asciiFont: {
-			fontFamily: "ZenMaruGothic-Medium",
+		cjkFont: {
+			fontFamily: "KosugiMaru-Regular",
 			fontWeight: "400",
-			localFonts: ["ZenMaruGothic-Medium.ttf"],
+			localFonts: ["KosugiMaru-Regular.ttf"],
 			enableCompress: false,
 		},
-		cjkFont: {
-			fontFamily: "ZenMaruGothic-Medium",
+		asciiFont: {
+			fontFamily: "Geist-Regular",
 			fontWeight: "400",
-			localFonts: ["ZenMaruGothic-Medium.ttf"],
-			enableCompress: false,
+			localFonts: ["Geist-Regular.ttf"],
+			enableCompress: true,
 		}
 	},
 	showLastModified: false, // 控制“上次编辑”卡片显示的开关

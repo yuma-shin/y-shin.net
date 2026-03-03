@@ -6,10 +6,17 @@
 
 /* 导入 ZenMaruGothic-Medium 字体 */
 @font-face {
-  font-family: 'ZenMaruGothic-Medium';
-  src: url('/assets/font/ZenMaruGothic-Medium.ttf') format('truetype');
-  font-weight: 400;
-  font-display: swap;
+    font-family: 'KosugiMaru-Regular';
+    src: url('/assets/font/KosugiMaru-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Geist-Regular';
+    src: url('/assets/font/Geist-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
 }
 
 @tailwind base;
