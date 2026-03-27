@@ -141,7 +141,7 @@ export async function GET({
 				flexDirection: "column",
 				backgroundColor: backgroundColor,
 				fontFamily:
-					'"Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+					'"Kosugi Maru", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
 				padding: "60px",
 			},
 			children: [
